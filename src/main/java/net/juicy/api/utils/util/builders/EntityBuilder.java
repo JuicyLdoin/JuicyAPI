@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -59,7 +60,14 @@ public class EntityBuilder implements IBuilder<Entity> {
 
     public EntityBuilder setPassenger(Entity entity) {
 
-        entity.setPassenger(entity);
+        this.entity.setPassenger(entity);
+        return this;
+
+    }
+
+    public EntityBuilder setTarget(LivingEntity target) {
+
+        entity.setTarget(target);
         return this;
 
     }
