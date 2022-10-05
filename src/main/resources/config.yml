@@ -1,0 +1,74 @@
+scoreboard:
+  default:
+    title: '&#fba806&lJ&#fbae06&lu&#fbb406&li&#fcba06&lc&#fcc006&ly&#fcc606&lG&#fccc06&la&#fcd206&ll&#fdd806&la&#fdde06&lx&#fde406&ly'
+    rowscount: 13
+    rows:
+      13: '| &#fba806И&#fcb706г&#fcc606р&#fdd506о&#fde406к:'
+      12: '| &fИмя: &e%name%'
+      11: '| &fПривилегия: %group%'
+      10: '|    '
+      9: '| &#fba806С&#fbaf06т&#fbb506а&#fcbc06т&#fcc306и&#fcc906с&#fcd006т&#fdd706и&#fddd06к&#fde406а:'
+      8: '| &fУровень: &e%level%'
+      7: '| &fОпыт: &e%xp%'
+      6: '|   '
+      5: '| &fЗолото: &e%gold%'
+      4: '| &fДжусики: &6%juiciki%'
+      3: '|  '
+      2: '| &#fba806С&#fbb406е&#fcc006р&#fccc06в&#fdd806е&#fde406р:'
+      1: '| &fОнлайн: &e%online%&f/&e%maxOnline%'
+
+tab:
+  header: "%n&e&lJuicyGalaxy%n"
+  footer: "%n&fСервер: &e%server%%n&fОнлайн проекта: &e%totalOnline%&f/&e%maxTotalOnline%%n"
+  
+  prefix: "%group% "
+  suffix: ""
+
+joinItems:
+  menu:
+    material: COMPASS
+    slot: 1
+    
+    name: "&#FB8A22Меню"
+    
+    command: "menu main"
+  profile:
+    material: HEART_OF_THE_SEA
+    slot: 2
+    
+    name: "&#c324fbП&#b844fbр&#ad65fcо&#a285fcф&#96a5fcи&#8bc6fdл&#80e6fdь"
+    
+    command: "profile"
+    
+gui:
+  main:
+    slots: 27
+    title: "                &fꭰ         "
+    
+    items:
+      evo:
+        material: NETHERITE_PICKAXE
+        slot: 14
+        
+        names:
+        - "&fꯀ &#FB8A22PrisonEvo &fꯀ"
+        - "&fꯀ &6PrisonEvo &fꯀ"
+        lores:
+          1:
+          - ""
+          - "&fПРИЗАН ЕВА (ЭЛЬФИ)"
+          - ""
+          - "&fОнлайн: &#FB8A22%online%"
+          - "&fСостояние: %status%"
+          - ""
+          2:
+          - ""
+          - "&fПРИЗАН ЕВА (ЭЛЬФИ)"
+          - ""
+          - "&fОнлайн: &6%online%"
+          - "&fСостояние: %status%"
+          - ""
+          
+        command: "server ПризонЭво"
+
+maxOnline: 50
