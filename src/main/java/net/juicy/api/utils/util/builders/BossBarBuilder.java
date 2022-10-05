@@ -6,9 +6,12 @@ import org.bukkit.boss.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class BossBarBuilder implements IBuilder<BossBar> {
 
     private final BossBar bossBar;
+    private int displayTaskId = -1;
 
     public BossBarBuilder(String title) {
 
@@ -95,8 +98,26 @@ public class BossBarBuilder implements IBuilder<BossBar> {
 
                 bossBar.hide();
 
+                if (displayTaskId != -1)
+                    Bukkit.getScheduler().cancelTask(displayTaskId);
+
             }
         }.runTaskLater(JuicyAPIPlugin.getPlugin(), time);
+
+        return this;
+
+    }
+
+    public <T> BossBarBuilder setDisplayValue(AtomicReference<T> value) {
+
+        displayTaskId = new BukkitRunnable() {
+
+            public void run() {
+
+                bossBar.setTitle(value.toString());
+
+            }
+        }.runTaskTimer(JuicyAPIPlugin.getPlugin(), 0, 1).getTaskId();
 
         return this;
 
