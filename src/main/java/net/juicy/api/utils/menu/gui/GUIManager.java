@@ -77,7 +77,7 @@ public class GUIManager implements ILoadable {
 
                                 ConfigurationSection itemSection = guiSection.getConfigurationSection("items." + item);
 
-                                ServerPlaceholder placeholder = new ServerPlaceholder(Bukkit.getMotd());
+                                ServerPlaceholder placeholder = new ServerPlaceholder(JuicyAPIPlugin.getPlugin().getServerManager().getServer(Bukkit.getMotd()));
 
                                 String command = itemSection.getString("command");
 
@@ -95,9 +95,10 @@ public class GUIManager implements ILoadable {
 
                                     IntStream.rangeClosed(1, loresSection.getKeys(false).size())
                                             .forEach(integer -> animationLores.add(new AnimationLore(
-                                                    new ServerPlaceholder(command.startsWith("server") ?
+                                                    new ServerPlaceholder(JuicyAPIPlugin.getPlugin().getServerManager().getServer(
+                                                            command.startsWith("server") ?
                                                             String.join(" ", new ArrayManager<>(command.split(" "))
-                                                                    .removeElement(0)) : Bukkit.getMotd()),
+                                                                    .removeElement(0)) : Bukkit.getMotd())),
                                                     new ArrayList<>(loresSection.getStringList(String.valueOf(integer))))));
 
                                 }
