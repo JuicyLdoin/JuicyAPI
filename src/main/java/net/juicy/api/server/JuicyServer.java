@@ -1,10 +1,6 @@
 package net.juicy.api.server;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +23,8 @@ public class JuicyServer {
     JuicyServerStatus status;
     @Enumerated(EnumType.STRING)
     JuicyServerState state;
+
+    @Transient
+    boolean updatable;
 
 }
