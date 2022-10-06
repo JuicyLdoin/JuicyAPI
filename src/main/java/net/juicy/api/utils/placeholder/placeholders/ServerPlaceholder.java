@@ -1,15 +1,14 @@
 package net.juicy.api.utils.placeholder.placeholders;
 
 import lombok.AllArgsConstructor;
-import org.bukkit.Bukkit;
+import net.juicy.api.JuicyAPIPlugin;
 import org.bukkit.entity.Player;
 import net.juicy.api.server.JuicyServer;
-import net.juicy.api.JuicyAPIPlugin;
 
 @AllArgsConstructor
 public class ServerPlaceholder extends APIPlaceholder {
 
-    private static final ServerPlaceholder serverPlaceholder = new ServerPlaceholder(Bukkit.getMotd());
+    private static final ServerPlaceholder serverPlaceholder = new ServerPlaceholder(JuicyAPIPlugin.getPlugin().getServerManager().getCurrentServer());
 
     public static ServerPlaceholder getServerPlaceholder() {
 
@@ -17,11 +16,9 @@ public class ServerPlaceholder extends APIPlaceholder {
 
     }
 
-    private final String serverName;
+    private final JuicyServer juicyServer;
 
     protected String replace(String string) {
-
-        JuicyServer juicyServer = JuicyAPIPlugin.getPlugin().getServerManager().getServer(serverName);
 
         if (juicyServer != null)
             string = string
