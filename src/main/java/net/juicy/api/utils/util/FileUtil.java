@@ -2,25 +2,34 @@ package net.juicy.api.utils.util;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileUtil {
 
-    public static void copy(File source, File destination) throws IOException {
+    public static void copy(File source, File destination, List<String> ignore) throws IOException {
 
         if (source.isDirectory())
-            copyDirectory(source, destination);
+            copyDirectory(source, destination, ignore);
         else
             copyFile(source, destination);
 
     }
 
-    private static void copyDirectory(File sourceDirectory, File destinationDirectory) throws IOException {
+    public static void copy(File source, File destination) throws IOException {
+
+        copy(source, destination, new ArrayList<>());
+
+    }
+
+    private static void copyDirectory(File sourceDirectory, File destinationDirectory, List<String> ignore) throws IOException {
 
         if (!destinationDirectory.exists())
             destinationDirectory.mkdir();
 
-        for (String f : sourceDirectory.list())
-            copy(new File(sourceDirectory, f), new File(destinationDirectory, f));
+        for (String file : sourceDirectory.list())
+            if (ignore.contains(file))
+                copy(new File(sourceDirectory, file), new File(destinationDirectory, file));
 
     }
 
