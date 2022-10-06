@@ -20,6 +20,8 @@ public class JuicyServerManager extends BukkitRunnable {
     JuicyAPIPlugin plugin;
     Map<String, JuicyServer> servers;
 
+    String currentServerName = Bukkit.getMotd();
+
     public JuicyServerManager() {
 
         plugin = JuicyAPIPlugin.getPlugin();
@@ -57,13 +59,13 @@ public class JuicyServerManager extends BukkitRunnable {
 
     public void loadLocalServer() {
 
-        if (!servers.containsKey(Bukkit.getMotd()))
-            servers.put(Bukkit.getMotd(), new JuicyServer(Bukkit.getMotd(),
+        if (!servers.containsKey(currentServerName))
+            servers.put(currentServerName, new JuicyServer(currentServerName,
                     Bukkit.getOnlinePlayers().size(), plugin.getConfig().getInt("maxOnline"),
                     JuicyServerStatus.ENABLED, Bukkit.hasWhitelist() ? JuicyServerState.DEVELOPMENT : JuicyServerState.UNKNOWN, true));
         else {
 
-            JuicyServer juicyServer = servers.get(Bukkit.getMotd());
+            JuicyServer juicyServer = servers.get(currentServerName);
 
             if (juicyServer.isUpdatable())
                 juicyServer.setPlayers(Bukkit.getOnlinePlayers().size());
@@ -122,7 +124,7 @@ public class JuicyServerManager extends BukkitRunnable {
     public void run() {
 
         loadLocalServer();
-        saveServer(servers.get(Bukkit.getMotd()));
+        saveServer(servers.get(currentServerName));
 
         loadAllServers();
 
