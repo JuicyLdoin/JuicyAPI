@@ -28,7 +28,7 @@ public class FileUtil {
             destinationDirectory.mkdir();
 
         for (String file : sourceDirectory.list())
-            if (ignore.contains(file))
+            if (!ignore.contains(file))
                 copy(new File(sourceDirectory, file), new File(destinationDirectory, file));
 
     }
