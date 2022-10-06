@@ -32,26 +32,13 @@ public class TimeUtil {
     
     public static String makeReadable2(int secs) {
 
-        long day = secs / 3600 / 24;
         long hour = secs / 3600 % 24;
         long min = secs / 60 % 60;
         long sec = secs % 60;
 
-        StringBuilder s = new StringBuilder();
-
-        if (day > 0)
-            s.append(day < 10 ? "0" : "").append(day).append(":");
-
-        if (hour > 0)
-            s.append(hour < 10 ? "0" : "").append(hour).append(":");
-
-        if (min > 0)
-            s.append(min < 10 ? "0" : "").append(min).append(":");
-
-        if (sec > 0)
-            s.append(sec < 10 ? "0" : "").append(sec);
-
-        return s.toString();
+        return (hour < 10 ? "0" : "") + hour + ":" +
+                (min < 10 ? "0" : "") + min + ":" +
+                (sec < 10 ? "0" : "") + sec;
 
     }
     
