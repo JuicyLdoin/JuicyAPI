@@ -44,6 +44,15 @@ public class EntityBuilder implements IBuilder<Entity> {
 
     }
 
+    public EntityBuilder setDisplayName(String displayName) {
+
+        entity.setCustomName(displayName);
+        entity.setCustomNameVisible(true);
+
+        return this;
+
+    }
+
     public EntityBuilder setItem(EquipmentSlot slot, ItemStack itemStack) {
 
         entity.getEquipment().setItem(slot, itemStack);
