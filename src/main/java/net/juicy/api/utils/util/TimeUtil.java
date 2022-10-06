@@ -14,16 +14,16 @@ public class TimeUtil {
 
         StringBuilder s = new StringBuilder();
 
-        if (day > 0L)
+        if (day > 0)
             s.append(day).append("д. ");
 
-        if (hour > 0L)
+        if (hour > 0)
             s.append(hour).append("ч. ");
 
-        if (min > 0L)
+        if (min > 0)
             s.append(min).append("м. ");
 
-        if (sec > 0L)
+        if (sec > 0)
             s.append(sec).append("с. ");
 
         return s.toString();
@@ -39,17 +39,17 @@ public class TimeUtil {
 
         StringBuilder s = new StringBuilder();
 
-        if (day > 0L)
-            s.append(day).append(":");
+        if (day > 0)
+            s.append(day < 10 ? "0" : "").append(day).append(":");
 
-        if (hour > 0L)
-            s.append(hour).append(":");
+        if (hour > 0)
+            s.append(hour < 10 ? "0" : "").append(hour).append(":");
 
-        if (min > 0L)
-            s.append(min).append(":");
+        if (min > 0)
+            s.append(min < 10 ? "0" : "").append(min).append(":");
 
-        if (sec > 0L)
-            s.append(sec);
+        if (sec > 0)
+            s.append(sec < 10 ? "0" : "").append(sec);
 
         return s.toString();
 
