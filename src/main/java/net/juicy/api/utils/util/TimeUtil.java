@@ -30,7 +30,7 @@ public class TimeUtil {
 
     }
     
-    public static String makeReadable2(int secs) {
+    public static String makeReadable24(int secs) {
 
         long hour = secs / 3600 % 24;
         long min = secs / 60 % 60;
