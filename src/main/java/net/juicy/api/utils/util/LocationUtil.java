@@ -1,7 +1,6 @@
 package net.juicy.api.utils.util;
 
-import org.bukkit.World;
-import org.bukkit.Bukkit;
+import net.juicy.api.utils.RawLocation;
 import org.bukkit.Location;
 
 public class LocationUtil {
@@ -11,23 +10,23 @@ public class LocationUtil {
         return location.getWorld().getName() + " " + location.getX() + " " + location.getY() + " " + location.getZ();
 
     }
-    
-    public static Location getLocation(String location) {
 
-        World world = null;
+    public static RawLocation getRawLocation(String location) {
 
-        double x = 0.0;
-        double y = 0.0;
-        double z = 0.0;
+        String world = null;
 
-        double yaw = 0.0;
-        double pitch = 0.0;
+        double x = 0;
+        double y = 0;
+        double z = 0;
+
+        float yaw = 0;
+        float pitch = 0;
 
         String[] _loc = location.split(" ");
 
         try {
 
-            world = Bukkit.getWorld(_loc[0]);
+            world = _loc[0];
 
             x = Double.parseDouble(_loc[1]);
             y = Double.parseDouble(_loc[2]);
@@ -35,13 +34,13 @@ public class LocationUtil {
 
             try {
 
-                yaw = Double.parseDouble(_loc[4]);
-                pitch = Double.parseDouble(_loc[5]);
+                yaw = Float.parseFloat(_loc[4]);
+                pitch = Float.parseFloat(_loc[5]);
 
             } catch (IndexOutOfBoundsException ex2) {
 
-                yaw = 0.0;
-                pitch = 0.0;
+                yaw = 0;
+                pitch = 0;
 
             }
         } catch (NullPointerException ex) {
@@ -50,8 +49,13 @@ public class LocationUtil {
 
         }
 
-        Location loc = new Location(world, x, y, z, (float)yaw, (float)pitch);
-        return (loc.getWorld() != null) ? loc : null;
+        return new RawLocation(world, x, y, z, yaw, pitch);
+
+    }
+    
+    public static Location getLocation(String location) {
+
+        return getRawLocation(location).toLocation();
 
     }
     
