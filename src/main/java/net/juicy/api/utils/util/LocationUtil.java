@@ -63,27 +63,27 @@ public class LocationUtil {
 
         if (minPoint.getX() > maxPoint.getX()) {
 
-            int x = maxPoint.getBlockX();
+            double x = maxPoint.getX();
 
-            maxPoint.setX(minPoint.getBlockX());
+            maxPoint.setX(minPoint.getX());
             minPoint.setX(x);
 
         }
 
         if (minPoint.getY() > maxPoint.getY()) {
 
-            int y = maxPoint.getBlockY();
+            double y = maxPoint.getY();
 
-            maxPoint.setY(minPoint.getBlockY());
+            maxPoint.setY(minPoint.getY());
             minPoint.setY(y);
 
         }
 
         if (minPoint.getZ() > maxPoint.getZ()) {
 
-            int z = maxPoint.getBlockZ();
+            double z = maxPoint.getZ();
 
-            maxPoint.setZ(minPoint.getBlockZ());
+            maxPoint.setZ(minPoint.getZ());
             minPoint.setZ(z);
 
         }
