@@ -39,14 +39,16 @@ public class EntityBuilder implements IBuilder<Entity> {
 
     public EntityBuilder setHealth(float health) {
 
+        entity.setMaxHealth(health);
         entity.setHealth(health);
+
         return this;
 
     }
 
     public EntityBuilder setDisplayName(String displayName) {
 
-        entity.setCustomName(displayName);
+        entity.setCustomName(displayName.replace("&", "§"));
         entity.setCustomNameVisible(true);
 
         return this;
