@@ -209,12 +209,12 @@ public class NumberRangeBuilder implements IBuilder<NumberRange> {
 
     public NumberRange applyFor(NumberRange numberRange) {
 
-        if (numberRange.getLesser() > minLimit)
+        if (numberRange.getLesser() < minLimit)
             numberRange.setLesser(min
                     .setMinLimit(minLimit)
                     .build());
 
-        if (numberRange.getLarger() < maxLimit)
+        if (numberRange.getLarger() > maxLimit)
             numberRange.setLarger(max
                     .setMaxLimit(maxLimit)
                     .build());
