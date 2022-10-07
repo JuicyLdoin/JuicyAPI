@@ -1,6 +1,8 @@
 package net.juicy.api.utils.util;
 
 import net.juicy.api.utils.RawLocation;
+import net.juicy.api.utils.util.number.NumberRange;
+import net.juicy.api.utils.util.number.NumberUtil;
 import org.bukkit.Location;
 
 public class LocationUtil {
@@ -102,6 +104,30 @@ public class LocationUtil {
     public static int[] getAddition(Location center, int x, int y, int z) {
 
         return new int[]{ center.getBlockX() - x, center.getBlockY() - y, center.getBlockZ() - z };
+
+    }
+
+    public static int[] getAddition(Location center, Location location) {
+
+        return getAddition(center, location.getBlockX(), location.getBlockY(), location.getBlockZ());
+
+    }
+
+    public static Location applyAddition(Location location, float x, float y, float z) {
+
+        return location.add(x, y, z);
+
+    }
+
+    public static Location applyAddition(Location location, float[] xyz) {
+
+        return location.add(xyz[0], xyz[1], xyz[2]);
+
+    }
+
+    public static Location applyAddition(Location location, NumberRange[] xyz) {
+
+        return location.add(NumberUtil.randomInRange(xyz[0]), NumberUtil.randomInRange(xyz[1]), NumberUtil.randomInRange(xyz[2]));
 
     }
 }
