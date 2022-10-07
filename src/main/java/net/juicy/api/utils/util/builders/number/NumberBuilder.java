@@ -126,7 +126,7 @@ public class NumberBuilder implements IBuilder<Float> {
 
     public Float build() {
 
-        return Math.min(Math.min(number, maxLimit), minLimit);
+        return Math.max(Math.min(number, maxLimit), minLimit);
 
     }
 }
