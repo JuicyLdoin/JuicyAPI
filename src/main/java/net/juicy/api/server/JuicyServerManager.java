@@ -124,7 +124,7 @@ public class JuicyServerManager extends BukkitRunnable {
     public void run() {
 
         loadLocalServer();
-        saveServer(servers.get(currentServerName));
+        saveServer(currentServer);
 
         loadAllServers();
 
