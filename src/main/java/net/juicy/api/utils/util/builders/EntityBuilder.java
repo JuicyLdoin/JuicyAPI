@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import net.juicy.api.JuicyAPIPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -19,12 +18,12 @@ import java.util.List;
 @AllArgsConstructor
 public class EntityBuilder implements IBuilder<Entity> {
 
-    private final Creature entity;
+    private final LivingEntity entity;
     private final List<Integer> tasks = new ArrayList<>();
 
     public EntityBuilder(Location location, EntityType entityType) {
 
-        entity = (Creature) location.getWorld().spawnEntity(location, entityType);
+        entity = (LivingEntity) location.getWorld().spawnEntity(location, entityType);
 
         addBukkitTask(new BukkitRunnable() {
 
@@ -72,13 +71,6 @@ public class EntityBuilder implements IBuilder<Entity> {
     public EntityBuilder setPassenger(Entity entity) {
 
         this.entity.setPassenger(entity);
-        return this;
-
-    }
-
-    public EntityBuilder setTarget(LivingEntity target) {
-
-        entity.setTarget(target);
         return this;
 
     }
