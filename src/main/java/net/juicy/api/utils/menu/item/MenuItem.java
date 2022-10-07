@@ -34,7 +34,7 @@ public class MenuItem {
         if (command.startsWith("server")) {
 
             JuicyServerManager juicyServerManager = JuicyAPIPlugin.getPlugin().getServerManager();
-            AtomicReference<JuicyServer> toConnect = null;
+            AtomicReference<JuicyServer> toConnect = new AtomicReference<>();
 
             if (command.contains(", ")) {
 
