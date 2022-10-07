@@ -29,14 +29,14 @@ public class NumberRange implements Cloneable {
 
         float larger, lesser;
 
-        if (!range.contains("-")) {
+        if (!range.contains("_")) {
 
             lesser = Float.parseFloat(range);
             larger = Float.parseFloat(range);
 
         } else {
 
-            String[] split = range.split("-");
+            String[] split = range.split("_");
 
             if (split.length != 2)
                 throw new RuntimeException();
@@ -76,7 +76,7 @@ public class NumberRange implements Cloneable {
 
     public String toString() {
 
-        return lesser + "-" + larger;
+        return lesser + "_" + larger;
 
     }
 }
