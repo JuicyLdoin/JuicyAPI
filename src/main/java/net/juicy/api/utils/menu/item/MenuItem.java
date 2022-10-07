@@ -39,7 +39,7 @@ public class MenuItem {
             if (command.contains(", ")) {
 
                 String[] servers = command.split(", ");
-                Arrays.stream(servers).forEach(serverName -> serverName.replace("server:", ""));
+                Arrays.stream(servers).forEach(serverName -> serverName.replace("server ", ""));
 
                 Arrays.stream(servers).filter(juicyServerManager::serverExists)
                         .forEach(serverName -> {
