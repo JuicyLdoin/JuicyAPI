@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import net.juicy.api.JuicyAPIPlugin;
 import org.bukkit.entity.Player;
@@ -93,6 +94,43 @@ public class JuicyServerManager implements Runnable {
         servers.forEach(server -> online.addAndGet(server.getPlayers()));
 
         return online.get();
+
+    }
+
+    public JuicyServer getByHighestOnline(List<JuicyServer> servers) {
+
+        JuicyServer juicyServer = null;
+
+        for (JuicyServer server : servers)
+            if (juicyServer == null)
+                juicyServer = server;
+            else if (juicyServer.getPlayers() < server.getPlayers())
+                juicyServer = server;
+
+        return juicyServer;
+
+    }
+
+    public JuicyServer getByHighestOnlineAndCanConnect(List<JuicyServer> servers, Player player) {
+
+        JuicyServer juicyServer = null;
+
+        for (JuicyServer server : servers)
+            if (juicyServer == null)
+                juicyServer = server;
+            else if (juicyServer.getPlayers() < server.getPlayers() && tryToConnect(player, server))
+                juicyServer = server;
+
+        return juicyServer;
+
+    }
+
+    public List<JuicyServer> getLobbyServers() {
+
+        return servers.values()
+                .stream()
+                .filter(juicyServer -> juicyServer.getName().startsWith("Лобби"))
+                .collect(Collectors.toList());
 
     }
 
