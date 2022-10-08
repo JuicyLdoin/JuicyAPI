@@ -6,6 +6,7 @@ import net.juicy.api.server.JuicyServer;
 import net.juicy.api.server.JuicyServerManager;
 import net.juicy.api.server.JuicyServerStatus;
 import net.juicy.api.server.JuicyServerUpdateFlag;
+import net.juicy.api.utils.Hologram;
 import net.juicy.api.utils.menu.gui.GUIManager;
 import net.juicy.api.utils.menu.item.ItemManager;
 import org.bukkit.Bukkit;
@@ -57,6 +58,8 @@ public class JuicyAPIPlugin extends JuicyPlugin {
     public void onDisable() {
 
         getServer().getMessenger().unregisterOutgoingPluginChannel(this);
+
+        Hologram.getHolograms().forEach(Hologram::clear);
 
         JuicyServer juicyServer = serverManager.getCurrentServer();
 

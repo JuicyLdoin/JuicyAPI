@@ -1,7 +1,6 @@
 package net.juicy.api.utils.load;
 
 import net.juicy.api.JuicyAPIPlugin;
-import net.juicy.api.utils.Hologram;
 
 import net.juicy.api.utils.load.list.UnLoadableList;
 
@@ -56,8 +55,6 @@ public class Loader extends UnLoadableList {
         unLoadableList.forEach(this::unload);
 
         JuicyAPIPlugin.getPlugin().getJuicyLogger().save();
-
-        Hologram.getHolograms().forEach(Hologram::clear);
 
     }
 }
