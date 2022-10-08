@@ -7,6 +7,18 @@ import java.util.List;
 
 public class FileUtil {
 
+    public static boolean deleteDirectory(File directoryToBeDeleted) {
+
+        File[] allContents = directoryToBeDeleted.listFiles();
+
+        if (allContents != null)
+            for (File file : allContents)
+                deleteDirectory(file);
+
+        return directoryToBeDeleted.delete();
+
+    }
+
     public static void copy(File source, File destination, List<String> ignore) throws IOException {
 
         if (source.isDirectory())
