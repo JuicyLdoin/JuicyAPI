@@ -3,6 +3,7 @@ package net.juicy.api.server;
 import lombok.Value;
 import net.juicy.api.utils.util.HibernateUtil;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -13,10 +14,9 @@ import java.util.Map;
 
 import net.juicy.api.JuicyAPIPlugin;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 @Value
-public class JuicyServerManager extends BukkitRunnable {
+public class JuicyServerManager implements Runnable {
 
     JuicyAPIPlugin plugin;
     Map<String, JuicyServer> servers;
@@ -27,11 +27,11 @@ public class JuicyServerManager extends BukkitRunnable {
     public JuicyServerManager() {
 
         plugin = JuicyAPIPlugin.getPlugin();
-        servers = new HashMap<>();
+        servers = Collections.synchronizedMap(new HashMap<>());
 
         currentServer = loadLocalServer();
 
-        runTaskTimerAsynchronously(plugin, 0L, 5L);
+        new Thread(this).start();
 
     }
 
@@ -101,9 +101,18 @@ public class JuicyServerManager extends BukkitRunnable {
         if (currentServer == null)
             return new JuicyServer(currentServerName,
                     Bukkit.getOnlinePlayers().size(), plugin.getConfig().getInt("maxOnline"),
-                    JuicyServerStatus.ENABLED, Bukkit.hasWhitelist() ? JuicyServerState.DEVELOPMENT : JuicyServerState.UNKNOWN, true);
-        else if (currentServer.isUpdatable())
-            currentServer.setPlayers(Bukkit.getOnlinePlayers().size());
+                    JuicyServerStatus.ENABLED, Bukkit.hasWhitelist() ? JuicyServerState.DEVELOPMENT : JuicyServerState.UNKNOWN,
+                    JuicyServerUpdateFlag.NONE);
+        else
+            switch (currentServer.getUpdateFlag()) {
+
+                case ONLY_PLAYERS:
+                    currentServer.setPlayers(Bukkit.getOnlinePlayers().size());
+
+                case ONLY_STATE:
+                    currentServer.setState(Bukkit.hasWhitelist() ? JuicyServerState.DEVELOPMENT : JuicyServerState.UNKNOWN);
+
+            }
 
         return currentServer;
 
@@ -133,7 +142,7 @@ public class JuicyServerManager extends BukkitRunnable {
     public void createServer(String name) {
 
         if (!serverExists(name))
-            saveServer(new JuicyServer(name, 0, 0, null, null, true));
+            saveServer(new JuicyServer(name, 0, 0, null, null, JuicyServerUpdateFlag.NONE));
 
     }
 
@@ -160,10 +169,13 @@ public class JuicyServerManager extends BukkitRunnable {
 
     public void run() {
 
-        loadLocalServer();
-        saveServer(currentServer);
+        while (JuicyAPIPlugin.getPlugin().isEnabled()) {
 
-        loadAllServers();
+            loadLocalServer();
+            saveServer(currentServer);
 
+            loadAllServers();
+
+        }
     }
 }

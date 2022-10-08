@@ -25,6 +25,6 @@ public class JuicyServer {
     JuicyServerState state;
 
     @Transient
-    boolean updatable;
+    JuicyServerUpdateFlag updateFlag;
 
 }
