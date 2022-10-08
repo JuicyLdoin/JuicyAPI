@@ -13,7 +13,7 @@ public enum JuicyServerState implements IDisplayable {
 
     private final String displayName;
 
-    public String displayName() {
+    public String getDisplayName() {
 
         return displayName;
 

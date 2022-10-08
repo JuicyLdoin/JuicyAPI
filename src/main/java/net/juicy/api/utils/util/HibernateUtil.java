@@ -8,6 +8,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import javax.annotation.Nullable;
+import java.util.Optional;
+
 public class HibernateUtil {
 
     private static Configuration configuration;
@@ -30,6 +33,7 @@ public class HibernateUtil {
             }
 
         return sessionFactory;
+
     }
     
     public static void registerAnnotatedClass(Class<?> clazz) {
@@ -42,43 +46,43 @@ public class HibernateUtil {
 
     }
 
-    public static <T> T get(Class<T> entityType, Object id) {
+    public static <T> Optional<T> get(Class<T> entityType, @Nullable Object object) {
 
-        Session session = getSessionFactory().openSession();
+        if (object != null) {
 
-        T object = session.get(entityType, id);
+            Session session = getSessionFactory().openSession();
+            T received = session.get(entityType, object);
 
-        session.close();
+            return Optional.ofNullable(received);
 
-        return object;
-
-    }
-
-    public static Query createQuery(String queryString) {
-
-        return getSessionFactory().openSession().createQuery(queryString);
+        } else
+            return Optional.empty();
 
     }
 
-    public static <R> Query<R> createQuery(String queryString, Class<R> resultClass) {
+    public static Optional<Query<Object>> createQuery(String queryString) {
 
-        return getSessionFactory().openSession().createQuery(queryString, resultClass);
+        return createQuery(queryString, Object.class);
+
+    }
+
+    public static <T> Optional<Query<T>> createQuery(String queryString, Class<T> resultClass) {
+
+        return Optional.ofNullable(getSessionFactory().openSession().createQuery(queryString, resultClass).setCacheable(false));
 
     }
 
     public static void saveOrUpdate(Object object) {
 
-        if (object == null)
-            return;
+        if (object != null) {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
 
-        session.saveOrUpdate(object);
+            session.saveOrUpdate(object);
 
-        transaction.commit();
+            transaction.commit();
 
-        session.close();
-
+        }
     }
 }

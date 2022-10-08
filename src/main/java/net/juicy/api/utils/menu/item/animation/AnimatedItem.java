@@ -1,5 +1,6 @@
 package net.juicy.api.utils.menu.item.animation;
 
+import lombok.Value;
 import net.juicy.api.JuicyAPIPlugin;
 import net.juicy.api.utils.JuicyItem;
 import net.juicy.api.utils.menu.item.MenuItem;
@@ -10,10 +11,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Queue;
 
+@Value
 public class AnimatedItem extends MenuItem {
 
-    private final Queue<String> nameQueue;
-    private final Queue<AnimationLore> loreQueue;
+    Queue<String> nameQueue;
+    Queue<AnimationLore> loreQueue;
 
     public AnimatedItem(Inventory inventory, JuicyItem juicyItem, String command, Queue<String> nameQueue, Queue<AnimationLore> loreQueue, int period) {
 

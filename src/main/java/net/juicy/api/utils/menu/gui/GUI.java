@@ -7,6 +7,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.Optional;
 
 @Value
 public class GUI {
@@ -23,13 +24,19 @@ public class GUI {
 
     }
 
-    public AnimatedItem getItemByItemStack(ItemStack itemStack) {
+    public Optional<AnimatedItem> getItemByItemStack(ItemStack itemStack) {
 
-        for (AnimatedItem animatedItem : items)
-            if (animatedItem.getJuicyItem().getItemStack().equals(itemStack))
-                return animatedItem;
+        AnimatedItem animatedItem = null;
 
-        return null;
+        for (AnimatedItem animatedItems : items)
+            if (animatedItems.getJuicyItem().getItemStack().equals(itemStack)) {
+
+                animatedItem = animatedItems;
+                break;
+
+            }
+
+        return Optional.ofNullable(animatedItem);
 
     }
 

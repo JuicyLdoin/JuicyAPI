@@ -28,8 +28,7 @@ public class MapManager<K, V> {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        map.entrySet()
-                .forEach(entry -> stringBuilder.append(entry.getKey()).append("-").append(entry.getValue()).append(";"));
+        map.forEach((key, value) -> stringBuilder.append(key).append("-").append(value).append(";"));
 
         return stringBuilder.toString();
 

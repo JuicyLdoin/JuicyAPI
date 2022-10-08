@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +31,6 @@ public class JuicyLoggerElement implements ISavable {
 
             if (!file.exists())
                 file.createNewFile();
-            else
-                Files.lines(getPath()).forEach(message -> messages.add(new JuicyLoggerMessage(this, null, message)));
 
         } catch (IOException exception) {
 
@@ -56,21 +53,19 @@ public class JuicyLoggerElement implements ISavable {
 
     public void save() {
 
-        try {
+        if (messages != null && !messages.isEmpty())
+            try {
 
-            PrintWriter writer = new PrintWriter(getFile());
-
-            writer.print("");
-
-            if (messages != null && !messages.isEmpty())
+                PrintWriter writer = new PrintWriter(getFile());
                 messages.forEach(message -> writer.write(message.build()));
+                writer.close();
 
-            writer.close();
+                messages.clear();
 
-        } catch (IOException exception) {
+            } catch (IOException exception) {
 
-            exception.printStackTrace();
+                exception.printStackTrace();
 
-        }
+            }
     }
 }

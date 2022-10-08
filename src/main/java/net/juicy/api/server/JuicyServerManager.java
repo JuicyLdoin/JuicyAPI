@@ -75,21 +75,22 @@ public class JuicyServerManager extends BukkitRunnable {
 
     public void loadServer(String name) {
 
-        servers.put(name, HibernateUtil.get(JuicyServer.class, name));
+        HibernateUtil.get(JuicyServer.class, name).ifPresent(server -> servers.put(name, server));
 
     }
 
     public void loadAllServers() {
 
         HibernateUtil.createQuery("From JuicyServer", JuicyServer.class)
-                .list()
-                .forEach(server -> servers.put(server.getName(), server));
+                .ifPresent(query -> query
+                        .list()
+                        .forEach(server -> servers.put(server.getName(), server)));
 
     }
 
     public boolean serverExists(String name) {
 
-        return HibernateUtil.get(JuicyServer.class, name) != null;
+        return HibernateUtil.get(JuicyServer.class, name).isPresent();
 
     }
 

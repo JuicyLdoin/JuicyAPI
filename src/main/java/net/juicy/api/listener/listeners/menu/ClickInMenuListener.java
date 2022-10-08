@@ -23,8 +23,7 @@ public class ClickInMenuListener implements ILoadableListener {
             if (gui != null)
                 if (gui.getInventory().equals(event.getClickedInventory())) {
 
-                    gui.getItemByItemStack(itemStack).invokeCommand(player);
-
+                    gui.getItemByItemStack(itemStack).ifPresent(item -> item.invokeCommand(player));
                     event.setCancelled(true);
 
                 }

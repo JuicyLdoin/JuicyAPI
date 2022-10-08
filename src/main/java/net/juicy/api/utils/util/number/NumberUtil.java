@@ -15,7 +15,7 @@ public class NumberUtil {
         if (min >= max)
             return 0;
 
-        return ThreadLocalRandom.current().nextInt((int) (max - min)) + min;
+        return ThreadLocalRandom.current().nextInt(max - min) + min;
 
     }
 

@@ -3,24 +3,22 @@ package net.juicy.api.utils.load;
 import net.juicy.api.JuicyAPIPlugin;
 import net.juicy.api.utils.Hologram;
 
-import java.util.List;
-import java.util.ArrayList;
 import net.juicy.api.utils.load.list.UnLoadableList;
 
 public class Loader extends UnLoadableList {
 
-    public Loader() {
+    public void addLoadable(ILoadable loadable) {
 
-        List<ILoadable> loadable = new ArrayList<>();
-
-        addAllLoadable(loadable);
-
-        List<IUnLoadable> unLoadable = new ArrayList<>();
-
-        addAllUnLoadable(unLoadable);
+        loadableList.add(loadable);
 
     }
-    
+
+    public void addUnLoadable(IUnLoadable unLoadable) {
+
+        unLoadableList.add(unLoadable);
+
+    }
+
     public void load(ILoadable loadable) {
 
         try {

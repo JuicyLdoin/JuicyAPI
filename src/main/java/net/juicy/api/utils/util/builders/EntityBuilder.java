@@ -25,15 +25,18 @@ public class EntityBuilder implements IBuilder<Entity> {
 
         entity = (LivingEntity) location.getWorld().spawnEntity(location, entityType);
 
-        addBukkitTask(new BukkitRunnable() {
+        new BukkitRunnable() {
 
             public void run() {
 
-                if (entity.isDead())
-                    tasks.forEach(taskId -> Bukkit.getScheduler().cancelTask(taskId));
+                if (entity.isDead()) {
 
+                    tasks.forEach(taskId -> Bukkit.getScheduler().cancelTask(taskId));
+                    cancel();
+
+                }
             }
-        }.runTaskTimer(JuicyAPIPlugin.getPlugin(), 0, 1));
+        }.runTaskTimer(JuicyAPIPlugin.getPlugin(), 0, 1);
     }
 
     public EntityBuilder setHealth(float health) {

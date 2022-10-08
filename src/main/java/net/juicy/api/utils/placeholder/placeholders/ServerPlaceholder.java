@@ -25,8 +25,8 @@ public class ServerPlaceholder extends APIPlaceholder {
                     .replace("%server%", juicyServer.getName())
                     .replace("%online%", String.valueOf(juicyServer.getPlayers()))
                     .replace("%maxOnline%", String.valueOf(juicyServer.getMaxPlayers()))
-                    .replace("%status%", juicyServer.getStatus().displayName())
-                    .replace("%state%", juicyServer.getState().displayName());
+                    .replace("%status%", juicyServer.getStatus().getDisplayName())
+                    .replace("%state%", juicyServer.getState().getDisplayName());
 
         return string;
 
