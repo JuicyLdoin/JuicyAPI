@@ -134,6 +134,12 @@ public class JuicyServerManager implements Runnable {
 
     }
 
+    public JuicyServer getLobbyServerToConnectPlayer(Player player) {
+
+        return getByHighestOnlineAndCanConnect(getLobbyServers(), player);
+
+    }
+
     public JuicyServer loadLocalServer() {
 
         if (currentServer == null)
