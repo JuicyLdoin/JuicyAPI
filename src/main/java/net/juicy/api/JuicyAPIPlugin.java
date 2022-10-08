@@ -64,6 +64,8 @@ public class JuicyAPIPlugin extends JuicyPlugin {
         juicyServer.setUpdatable(false);
         juicyServer.setStatus(JuicyServerStatus.DISABLED);
 
+        juicyServer.setPlayers(0);
+
         serverManager.saveServer(juicyServer);
 
         loader.unLoadAll();
