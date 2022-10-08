@@ -2,6 +2,7 @@ package net.juicy.api;
 
 import lombok.Getter;
 import net.juicy.api.listener.ListenerManager;
+import net.juicy.api.server.JuicyServer;
 import net.juicy.api.server.JuicyServerManager;
 import net.juicy.api.server.JuicyServerStatus;
 import net.juicy.api.utils.menu.gui.GUIManager;
@@ -56,7 +57,11 @@ public class JuicyAPIPlugin extends JuicyPlugin {
 
         getServer().getMessenger().unregisterOutgoingPluginChannel(this);
 
-        serverManager.getCurrentServer().setStatus(JuicyServerStatus.DISABLED);
+        JuicyServer juicyServer = serverManager.getCurrentServer();
+
+        juicyServer.setUpdatable(false);
+        juicyServer.setStatus(JuicyServerStatus.DISABLED);
+
         loader.unLoadAll();
 
     }
