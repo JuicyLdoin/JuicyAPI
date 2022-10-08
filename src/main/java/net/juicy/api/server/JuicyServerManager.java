@@ -206,7 +206,7 @@ public class JuicyServerManager implements Runnable {
             return false;
         if (juicyServer.getPlayers() >= juicyServer.getMaxPlayers() && player.hasPermission("juicy.full"))
             return true;
-        else if (juicyServer.getState().equals(JuicyServerState.DEVELOPMENT) && player.hasPermission("juicy.developer"))
+        else if ((juicyServer.getState().equals(JuicyServerState.DEVELOPMENT) && player.hasPermission("juicy.developer")) || Bukkit.getWhitelistedPlayers().contains(player))
             return true;
         else if (juicyServer.getState().equals(JuicyServerState.INGAME) && player.hasPermission("juicy.spectate"))
             return true;
