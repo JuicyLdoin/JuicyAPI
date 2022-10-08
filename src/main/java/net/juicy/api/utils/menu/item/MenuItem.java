@@ -14,6 +14,7 @@ import org.bukkit.inventory.Inventory;
 
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.IntStream;
 
 @Data
 @AllArgsConstructor
@@ -39,7 +40,9 @@ public class MenuItem {
             if (command.contains(", ")) {
 
                 String[] servers = command.split(", ");
-                Arrays.stream(servers).forEach(serverName -> serverName.replace("server ", ""));
+
+                IntStream.range(0, servers.length)
+                        .forEach(i -> servers[i] = servers[i].replace("server ", ""));
 
                 Arrays.stream(servers).filter(juicyServerManager::serverExists)
                         .forEach(serverName -> {
@@ -54,12 +57,11 @@ public class MenuItem {
                         });
             }
 
-            if (toConnect.get() != null) {
+            JuicyServer juicyServer = toConnect.get();
 
-                toConnect.set(juicyServerManager.getServer(String.join("", new ArrayManager<>(command.split(" ")).removeElement(0))));
-                Utils.connectPlayerToServer(player, toConnect.get().getName());
-
-            } else
+            if (juicyServer != null)
+                Utils.connectPlayerToServer(player, juicyServer.getName());
+            else
                 player.sendMessage(JuicyAPIPlugin.getPlugin().replace("%prefix%Вы не можете подключиться к серверу!"));
 
         } else if (command.startsWith("menu")) {
