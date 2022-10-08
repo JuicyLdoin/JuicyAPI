@@ -95,11 +95,11 @@ public class GUIManager implements ILoadable {
 
                                         ConfigurationSection loresSection = itemSection.getConfigurationSection("lores");
 
-                                        IntStream.rangeClosed(1, loresSection.getKeys(false).size())
-                                                .forEach(integer -> animationLores.add(new AnimationLore(
+                                        IntStream.rangeClosed(1, loresSection.getKeys(false).size()).forEach(integer -> animationLores.add(new AnimationLore(
                                                         new ServerPlaceholder(JuicyAPIPlugin.getPlugin().getServerManager().getServer(
                                                                 command.startsWith("server") ?
-                                                                        String.join(" ", new ArrayManager<>(command.split(" "))
+                                                                        String.join(" ", new ArrayManager<>(
+                                                                                command.contains(", ") ? command.split(", ")[0].split(" ") : command.split(" "))
                                                                                 .removeElement(0)) : Bukkit.getMotd())),
                                                         new ArrayList<>(loresSection.getStringList(String.valueOf(integer))))));
 

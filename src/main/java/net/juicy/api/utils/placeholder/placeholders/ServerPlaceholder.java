@@ -23,6 +23,9 @@ public class ServerPlaceholder extends APIPlaceholder {
         if (juicyServer != null)
             string = string
                     .replace("%server%", juicyServer.getName())
+                    .replace("%onlineInGroup%", String.valueOf(JuicyAPIPlugin.getPlugin()
+                            .getServerManager()
+                            .getOnlineOnServerGroupByStartName(juicyServer.getName().split("-")[0])))
                     .replace("%online%", String.valueOf(juicyServer.getPlayers()))
                     .replace("%maxOnline%", String.valueOf(juicyServer.getMaxPlayers()))
                     .replace("%status%", juicyServer.getStatus().getDisplayName())
