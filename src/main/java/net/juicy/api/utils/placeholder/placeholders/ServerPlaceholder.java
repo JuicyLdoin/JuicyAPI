@@ -23,16 +23,21 @@ public class ServerPlaceholder extends APIPlaceholder {
 
         JuicyServer juicyServer = JuicyAPIPlugin.getPlugin().getServerManager().getServer(serverName);
 
-        if (juicyServer != null)
+        if (juicyServer != null) {
+
             string = string
                     .replace("%server%", juicyServer.getName())
                     .replace("%online%", String.valueOf(juicyServer.getPlayers()))
                     .replace("%maxOnline%", String.valueOf(juicyServer.getMaxPlayers()))
-                    .replace("%onlineInGroup%", String.valueOf(JuicyAPIPlugin.getPlugin()
-                                    .getServerManager()
-                                    .getOnlineOnServerGroupByStartName(juicyServer.getName().split("-")[1])))
                     .replace("%status%", juicyServer.getStatus().getDisplayName())
                     .replace("%state%", juicyServer.getState().getDisplayName());
+
+            if (juicyServer.getName().contains("-"))
+                string = string.replace("%onlineInGroup%", String.valueOf(JuicyAPIPlugin.getPlugin()
+                                .getServerManager()
+                                .getOnlineOnServerGroupByStartName(juicyServer.getName().split("-")[1])));
+
+        }
 
         return string;
 
