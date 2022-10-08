@@ -102,9 +102,13 @@ public class JuicyServerManager implements Runnable {
             return new JuicyServer(currentServerName,
                     Bukkit.getOnlinePlayers().size(), plugin.getConfig().getInt("maxOnline"),
                     JuicyServerStatus.ENABLED, Bukkit.hasWhitelist() ? JuicyServerState.DEVELOPMENT : JuicyServerState.UNKNOWN,
-                    JuicyServerUpdateFlag.NONE);
+                    JuicyServerUpdateFlag.ALL);
         else
             switch (currentServer.getUpdateFlag()) {
+
+                case ALL:
+                    currentServer.setPlayers(Bukkit.getOnlinePlayers().size());
+                    currentServer.setState(Bukkit.hasWhitelist() ? JuicyServerState.DEVELOPMENT : JuicyServerState.UNKNOWN);
 
                 case ONLY_PLAYERS:
                     currentServer.setPlayers(Bukkit.getOnlinePlayers().size());
@@ -142,7 +146,7 @@ public class JuicyServerManager implements Runnable {
     public void createServer(String name) {
 
         if (!serverExists(name))
-            saveServer(new JuicyServer(name, 0, 0, null, null, JuicyServerUpdateFlag.NONE));
+            saveServer(new JuicyServer(name, 0, 0, null, null, JuicyServerUpdateFlag.ALL));
 
     }
 
