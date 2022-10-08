@@ -3,6 +3,7 @@ package net.juicy.api.server;
 import lombok.Value;
 import net.juicy.api.utils.util.HibernateUtil;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.bukkit.Bukkit;
@@ -55,6 +56,41 @@ public class JuicyServerManager extends BukkitRunnable {
         AtomicInteger online = new AtomicInteger();
 
         servers.values().forEach(server -> online.addAndGet(server.getMaxPlayers()));
+
+        return online.get();
+
+    }
+
+    public int getOnlineOnServerGroupByStartName(String serversName) {
+
+        AtomicInteger online = new AtomicInteger();
+
+        servers.values()
+                .stream()
+                .filter(server -> server.getName().startsWith(serversName))
+                .forEach(server -> online.addAndGet(server.getPlayers()));
+
+        return online.get();
+
+    }
+
+    public int getOnlineOnServerGroupByNames(List<String> servers) {
+
+        AtomicInteger online = new AtomicInteger();
+
+        servers.stream()
+                .filter(this.servers::containsKey)
+                .forEach(server -> online.addAndGet(this.servers.get(server).getPlayers()));
+
+        return online.get();
+
+    }
+
+    public int getOnlineOnServerGroup(List<JuicyServer> servers) {
+
+        AtomicInteger online = new AtomicInteger();
+
+        servers.forEach(server -> online.addAndGet(server.getPlayers()));
 
         return online.get();
 
