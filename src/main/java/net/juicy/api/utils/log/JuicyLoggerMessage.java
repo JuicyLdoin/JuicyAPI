@@ -42,9 +42,9 @@ public class JuicyLoggerMessage implements ISavable, IDatableMessage {
 
         try {
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter(getFile()));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(getFile(), true));
 
-            writer.write(build());
+            writer.append(build());
             writer.close();
 
         } catch (IOException exception) {
