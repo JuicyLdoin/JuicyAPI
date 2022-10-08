@@ -57,6 +57,8 @@ public class JuicyAPIPlugin extends JuicyPlugin {
 
         getServer().getMessenger().unregisterOutgoingPluginChannel(this);
 
+        serverManager.cancel();
+
         JuicyServer juicyServer = serverManager.getCurrentServer();
 
         juicyServer.setUpdatable(false);
