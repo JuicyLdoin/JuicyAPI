@@ -35,7 +35,7 @@ public class ServerPlaceholder extends APIPlaceholder {
             if (juicyServer.getName().contains("-"))
                 string = string.replace("%onlineInGroup%", String.valueOf(JuicyAPIPlugin.getPlugin()
                                 .getServerManager()
-                                .getOnlineOnServerGroupByStartName(juicyServer.getName().split("-")[1])));
+                                .getOnlineOnServerGroupByStartName(juicyServer.getName().split("-")[0])));
 
         }
 
