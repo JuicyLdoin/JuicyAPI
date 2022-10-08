@@ -7,7 +7,6 @@ import net.juicy.api.utils.load.ILoadable;
 import net.juicy.api.utils.menu.item.animation.AnimatedItem;
 import net.juicy.api.utils.menu.item.animation.AnimationLore;
 import net.juicy.api.utils.placeholder.placeholders.ServerPlaceholder;
-import net.juicy.api.utils.util.collection.ArrayManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -15,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 @Value
 public class GUIManager implements ILoadable {
@@ -79,7 +77,7 @@ public class GUIManager implements ILoadable {
 
                                     ConfigurationSection itemSection = guiSection.getConfigurationSection("items." + item);
 
-                                    ServerPlaceholder placeholder = new ServerPlaceholder(JuicyAPIPlugin.getPlugin().getServerManager().getServer(Bukkit.getMotd()));
+                                    ServerPlaceholder placeholder = ServerPlaceholder.getServerPlaceholder();
 
                                     String command = itemSection.getString("command");
 
@@ -95,14 +93,11 @@ public class GUIManager implements ILoadable {
 
                                         ConfigurationSection loresSection = itemSection.getConfigurationSection("lores");
 
-                                        IntStream.rangeClosed(1, loresSection.getKeys(false).size()).forEach(integer -> animationLores.add(new AnimationLore(
-                                                        new ServerPlaceholder(JuicyAPIPlugin.getPlugin().getServerManager().getServer(
-                                                                command.startsWith("server") ?
-                                                                        String.join(" ", new ArrayManager<>(
-                                                                                command.contains(", ") ? command.split(", ")[0].split(" ") : command.split(" "))
-                                                                                .removeElement(0)) : Bukkit.getMotd())),
-                                                        new ArrayList<>(loresSection.getStringList(String.valueOf(integer))))));
-
+                                        loresSection.getKeys(false).forEach(string -> animationLores.add(new AnimationLore(
+                                                command.startsWith("server")
+                                                        ? new ServerPlaceholder(command.contains(", ") ? command.split(", ")[0].split(" ")[1] : command.split(" ")[1])
+                                                        : placeholder,
+                                                new ArrayList<>(loresSection.getStringList(string)))));
                                     }
 
                                     items.add(new AnimatedItem(inventory, new JuicyItem(itemSection), command, animationNames, animationLores, 20));

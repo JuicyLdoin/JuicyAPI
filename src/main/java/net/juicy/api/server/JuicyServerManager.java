@@ -43,7 +43,7 @@ public class JuicyServerManager extends BukkitRunnable {
 
     public int getTotalOnline() {
 
-        AtomicInteger online = new AtomicInteger();
+        AtomicInteger online = new AtomicInteger(0);
 
         servers.values().forEach(server -> online.addAndGet(server.getPlayers()));
 
@@ -53,7 +53,7 @@ public class JuicyServerManager extends BukkitRunnable {
 
     public int getMaxOnline() {
 
-        AtomicInteger online = new AtomicInteger();
+        AtomicInteger online = new AtomicInteger(0);
 
         servers.values().forEach(server -> online.addAndGet(server.getMaxPlayers()));
 
@@ -63,7 +63,7 @@ public class JuicyServerManager extends BukkitRunnable {
 
     public int getOnlineOnServerGroupByStartName(String serversName) {
 
-        AtomicInteger online = new AtomicInteger();
+        AtomicInteger online = new AtomicInteger(0);
 
         servers.values()
                 .stream()
@@ -76,7 +76,7 @@ public class JuicyServerManager extends BukkitRunnable {
 
     public int getOnlineOnServerGroupByNames(List<String> servers) {
 
-        AtomicInteger online = new AtomicInteger();
+        AtomicInteger online = new AtomicInteger(0);
 
         servers.stream()
                 .filter(this.servers::containsKey)
@@ -88,7 +88,7 @@ public class JuicyServerManager extends BukkitRunnable {
 
     public int getOnlineOnServerGroup(List<JuicyServer> servers) {
 
-        AtomicInteger online = new AtomicInteger();
+        AtomicInteger online = new AtomicInteger(0);
 
         servers.forEach(server -> online.addAndGet(server.getPlayers()));
 
