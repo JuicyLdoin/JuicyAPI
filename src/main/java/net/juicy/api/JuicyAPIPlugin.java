@@ -5,6 +5,7 @@ import net.juicy.api.listener.ListenerManager;
 import net.juicy.api.server.JuicyServer;
 import net.juicy.api.server.JuicyServerManager;
 import net.juicy.api.server.JuicyServerStatus;
+import net.juicy.api.server.JuicyServerUpdateFlag;
 import net.juicy.api.utils.menu.gui.GUIManager;
 import net.juicy.api.utils.menu.item.ItemManager;
 import org.bukkit.Bukkit;
@@ -57,11 +58,9 @@ public class JuicyAPIPlugin extends JuicyPlugin {
 
         getServer().getMessenger().unregisterOutgoingPluginChannel(this);
 
-        serverManager.cancel();
-
         JuicyServer juicyServer = serverManager.getCurrentServer();
 
-        juicyServer.setUpdatable(false);
+        juicyServer.setUpdateFlag(JuicyServerUpdateFlag.NONE);
         juicyServer.setStatus(JuicyServerStatus.DISABLED);
 
         juicyServer.setPlayers(0);
