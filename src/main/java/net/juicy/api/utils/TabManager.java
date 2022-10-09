@@ -2,17 +2,20 @@ package net.juicy.api.utils;
 
 import lombok.Data;
 import net.juicy.api.JuicyAPIPlugin;
+import net.minecraft.server.v1_16_R3.Packet;
+import net.minecraft.server.v1_16_R3.PacketListenerPlayOut;
+import net.minecraft.server.v1_16_R3.PacketPlayOutPlayerListHeaderFooter;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.scoreboard.Team;
 import org.bukkit.scoreboard.Scoreboard;
 import net.juicy.player.player.JuicyPlayer;
 import net.juicy.player.JuicyPlayerPlugin;
-import net.minecraft.network.chat.ChatComponentText;
-import net.minecraft.network.protocol.game.PacketPlayOutPlayerListHeaderFooter;
-import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.Bukkit;
 import net.juicy.api.utils.placeholder.IPlaceholder;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.lang.reflect.Field;
 
 @Data
 public class TabManager extends BukkitRunnable {
@@ -61,10 +64,31 @@ public class TabManager extends BukkitRunnable {
 
         Bukkit.getOnlinePlayers().forEach(player -> {
 
-            ((CraftPlayer) player).getHandle().b.a(
-                    new PacketPlayOutPlayerListHeaderFooter(
-                            new ChatComponentText(placeholder.replace(header, player)),
-                            new ChatComponentText(placeholder.replace(footer, player))));
+            try {
+
+                PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter();
+                Class<? extends Packet<PacketListenerPlayOut>> clazz = packet.getClass();
+
+                Field headerField = clazz.getDeclaredField("a");
+
+                headerField.setAccessible(true);
+                headerField.set(packet, placeholder.replace(header, player));
+                headerField.setAccessible(!headerField.isAccessible());
+
+                Field footerField = clazz.getDeclaredField("a");
+
+                footerField.setAccessible(true);
+                footerField.set(packet, placeholder.replace(footer, player));
+                footerField.setAccessible(!footerField.isAccessible());
+
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+
+
+            } catch (Exception exception) {
+
+                exception.printStackTrace();
+
+            }
 
             Bukkit.getOnlinePlayers().forEach(online -> {
 
