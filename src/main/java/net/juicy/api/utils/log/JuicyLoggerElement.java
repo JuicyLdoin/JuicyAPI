@@ -1,6 +1,5 @@
 package net.juicy.api.utils.log;
 
-import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.io.File;
@@ -53,19 +52,11 @@ public class JuicyLoggerElement implements ISavable {
 
     public void save() {
 
-        if (messages != null && !messages.isEmpty())
-            try {
+        if (messages != null && !messages.isEmpty()) {
 
-                PrintWriter writer = new PrintWriter(getFile());
-                messages.forEach(message -> writer.write(message.build()));
-                writer.close();
+            messages.forEach(JuicyLoggerMessage::save);
+            messages.clear();
 
-                messages.clear();
-
-            } catch (IOException exception) {
-
-                exception.printStackTrace();
-
-            }
+        }
     }
 }
