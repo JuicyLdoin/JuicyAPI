@@ -84,7 +84,7 @@ public class ColorUtil {
 
     }
     
-    public static Color deseralizeColor(String color) {
+    public static Color deserializeColor(String color) {
 
         if (color.equalsIgnoreCase("GREEN"))
             return Color.GREEN;
