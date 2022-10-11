@@ -174,10 +174,7 @@ public class JuicyServerManager implements Runnable {
 
     public void loadAllServers() {
 
-        HibernateUtil.createQuery("From JuicyServer", JuicyServer.class)
-                .ifPresent(query -> query
-                        .list()
-                        .forEach(server -> servers.put(server.getName(), server)));
+        HibernateUtil.createQueryAndCallActionForEach("From JuicyServer", JuicyServer.class, juicyServer ->  servers.put(juicyServer.getName(), juicyServer));
 
     }
 

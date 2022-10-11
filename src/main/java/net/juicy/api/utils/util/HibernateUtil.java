@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class HibernateUtil {
 
@@ -46,6 +47,15 @@ public class HibernateUtil {
 
     }
 
+    public static <T> Optional<T> getAndCallAction(Class<T> entityType, @Nullable Object object, Consumer<T> consumer) {
+
+        Optional<T> receivedOptional = get(entityType, object);
+        receivedOptional.ifPresent(consumer);
+
+        return receivedOptional;
+
+    }
+
     public static <T> Optional<T> get(Class<T> entityType, @Nullable Object object) {
 
         if (object != null) {
@@ -69,6 +79,15 @@ public class HibernateUtil {
     public static <T> Optional<Query<T>> createQuery(String queryString, Class<T> resultClass) {
 
         return Optional.ofNullable(getSessionFactory().openSession().createQuery(queryString, resultClass).setCacheable(false));
+
+    }
+
+    public static <T> Optional<Query<T>> createQueryAndCallActionForEach(String queryString, Class<T> resultClass, Consumer<T> consumer) {
+
+        Optional<Query<T>> optional = Optional.ofNullable(getSessionFactory().openSession().createQuery(queryString, resultClass).setCacheable(false));
+        optional.ifPresent(query -> query.list().forEach(consumer));
+
+        return optional;
 
     }
 
