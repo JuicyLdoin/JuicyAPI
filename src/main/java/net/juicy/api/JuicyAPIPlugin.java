@@ -19,7 +19,6 @@ import net.juicy.api.utils.log.JuicyLogger;
 import org.bukkit.generator.ChunkGenerator;
 
 import java.util.Arrays;
-import java.util.List;
 
 @Getter
 public class JuicyAPIPlugin extends JuicyPlugin {
@@ -48,7 +47,7 @@ public class JuicyAPIPlugin extends JuicyPlugin {
         juicyLogger = new JuicyLogger(this);
         loader = new Loader();
 
-        loader.load(new CommandManager(plugin, "juicyreload", plugin.getCommand("juicyreload").getAliases(), List.of(JuicyReloadCommand.class)));
+        loader.load(new CommandManager(plugin, "juicyreload", plugin.getCommand("juicyreload").getAliases(), Arrays.asList(JuicyReloadCommand.class)));
 
         loader.load(new ListenerManager());
 
