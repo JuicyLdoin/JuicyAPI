@@ -1,6 +1,7 @@
 package net.juicy.api;
 
 import lombok.Getter;
+import lombok.NonNull;
 import net.juicy.api.listener.ListenerManager;
 import net.juicy.api.server.JuicyServer;
 import net.juicy.api.server.JuicyServerManager;
@@ -35,7 +36,7 @@ public class JuicyAPIPlugin extends JuicyPlugin {
 
     public void onEnable() {
 
-        JuicyAPIPlugin.plugin = this;
+        plugin = this;
 
         saveDefaultConfig();
 
@@ -76,7 +77,7 @@ public class JuicyAPIPlugin extends JuicyPlugin {
 
     }
 
-    public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+    public ChunkGenerator getDefaultWorldGenerator(@NonNull String worldName, String id) {
 
         return new EmptyGeneratorUtil();
 
