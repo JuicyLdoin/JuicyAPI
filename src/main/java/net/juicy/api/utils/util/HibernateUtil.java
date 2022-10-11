@@ -16,7 +16,7 @@ public class HibernateUtil {
 
     private static Configuration configuration;
     private static SessionFactory sessionFactory;
-    
+
     public static SessionFactory getSessionFactory() {
 
         if (sessionFactory == null)
@@ -36,7 +36,7 @@ public class HibernateUtil {
         return sessionFactory;
 
     }
-    
+
     public static void registerAnnotatedClass(Class<?> clazz) {
 
         if (sessionFactory == null)
@@ -82,12 +82,13 @@ public class HibernateUtil {
 
     }
 
-    public static <T> Optional<Query<T>> createQueryAndCallActionForEach(String queryString, Class<T> resultClass, Consumer<T> consumer) {
+    public static <T> void createQueryAndCallActionForEach(String queryString, Class<T> resultClass, Consumer<T> consumer) {
 
-        Optional<Query<T>> optional = Optional.ofNullable(getSessionFactory().openSession().createQuery(queryString, resultClass).setCacheable(false));
-        optional.ifPresent(query -> query.list().forEach(consumer));
-
-        return optional;
+        Optional.ofNullable(getSessionFactory()
+                        .openSession()
+                        .createQuery(queryString, resultClass)
+                        .setCacheable(false))
+                .ifPresent(query -> query.list().forEach(consumer));
 
     }
 
