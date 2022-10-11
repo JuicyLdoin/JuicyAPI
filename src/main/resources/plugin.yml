@@ -2,4 +2,6 @@ name: JuicyAPI
 version: '1.0'
 
 main: net.juicy.api.JuicyAPIPlugin
+api-version: 1.13+
+
 author: Ldoin
