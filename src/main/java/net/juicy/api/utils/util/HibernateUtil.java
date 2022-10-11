@@ -58,15 +58,7 @@ public class HibernateUtil {
 
     public static <T> Optional<T> get(Class<T> entityType, @Nullable Object object) {
 
-        if (object != null) {
-
-            Session session = getSessionFactory().openSession();
-            T received = session.get(entityType, object);
-
-            return Optional.ofNullable(received);
-
-        } else
-            return Optional.empty();
+        return Optional.ofNullable(getSessionFactory().openSession().get(entityType, object));
 
     }
 
