@@ -3,8 +3,6 @@ package net.juicy.api.utils.util;
 import org.bukkit.Color;
 import net.md_5.bungee.api.ChatColor;
 
-import java.util.stream.IntStream;
-
 public class ColorUtil {
 
     public static final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
@@ -138,114 +136,6 @@ public class ColorUtil {
 
         if (color.equalsIgnoreCase("GRAY"))
             return Color.GRAY;
-
-        return null;
-
-    }
-    
-    public static Color dyeIDtoColor(int id) {
-
-        if (id == 0)
-            return Color.BLACK;
-
-        if (id == 1)
-            return Color.RED;
-
-        if (id == 2)
-            return Color.GREEN;
-
-        if (id == 3)
-            return Color.OLIVE;
-
-        if (id == 4)
-            return Color.BLUE;
-
-        if (id == 5)
-            return Color.MAROON;
-
-        if (id == 6)
-            return Color.AQUA;
-
-        if (id == 7)
-            return Color.SILVER;
-
-        if (id == 8)
-            return Color.GRAY;
-
-        if (id == 9)
-            return Color.FUCHSIA;
-
-        if (id == 10)
-            return Color.LIME;
-
-        if (id == 11)
-            return Color.YELLOW;
-
-        if (id == 12)
-            return Color.NAVY;
-
-        if (id == 13)
-            return Color.TEAL;
-
-        if (id == 14)
-            return Color.ORANGE;
-
-        if (id == 15)
-            return Color.WHITE;
-
-        return null;
-
-    }
-    
-    public static Color woolIDtoColor(int id) {
-
-        if (id == 0)
-            return Color.WHITE;
-
-        if (id == 1)
-            return Color.ORANGE;
-
-        if (id == 2)
-            return Color.NAVY;
-
-        if (id == 3)
-            return Color.TEAL;
-
-        if (id == 4)
-            return Color.YELLOW;
-
-        if (id == 5)
-            return Color.LIME;
-
-        if (id == 6)
-            return Color.FUCHSIA;
-
-        if (id == 7)
-            return Color.GRAY;
-
-        if (id == 8)
-            return Color.SILVER;
-
-        if (id == 9)
-            return Color.AQUA;
-
-        if (id == 10)
-            return Color.MAROON;
-
-        if (id == 11)
-            return Color.BLUE;
-
-        if (id == 12)
-            return Color.OLIVE;
-
-        if (id == 13)
-            return Color.GREEN;
-
-        if (id == 14)
-            return Color.RED;
-
-        if (id == 15)
-            return Color.BLACK;
 
         return null;
 
