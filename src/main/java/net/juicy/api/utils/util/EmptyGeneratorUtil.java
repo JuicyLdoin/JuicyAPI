@@ -1,6 +1,7 @@
 package net.juicy.api.utils.util;
 
-import org.bukkit.Location;
+import lombok.NonNull;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.generator.ChunkGenerator;
 
@@ -8,51 +9,16 @@ import java.util.Random;
 
 public class EmptyGeneratorUtil extends ChunkGenerator {
 
-    public boolean shouldGenerateNoise() {
+    public @NonNull ChunkData generateChunkData(@NonNull World world, @NonNull Random random, int x, int z, @NonNull BiomeGrid biome) {
 
-        return false;
+        ChunkData chunk = createChunkData(world);
 
-    }
+        for (int blockX = 0; blockX < 16; blockX++)
+            for (int blockY = 0; blockY < 256; blockY++)
+                for (int blockZ = 0; blockZ < 16; blockZ++)
+                    chunk.setBlock(blockX, blockY, blockZ, Material.AIR);
 
-    public boolean shouldGenerateSurface() {
-
-        return false;
-
-    }
-
-    public boolean shouldGenerateBedrock() {
-
-        return false;
-
-    }
-
-    public boolean shouldGenerateCaves() {
-
-        return false;
-
-    }
-
-    public boolean shouldGenerateDecorations() {
-
-        return false;
-
-    }
-
-    public boolean shouldGenerateMobs() {
-
-        return false;
-
-    }
-
-    public boolean shouldGenerateStructures() {
-
-        return false;
-
-    }
-
-    public Location getFixedSpawnLocation(World world, Random random) {
-
-        return new Location(world, 0, 100, 0);
+        return chunk;
 
     }
 }
