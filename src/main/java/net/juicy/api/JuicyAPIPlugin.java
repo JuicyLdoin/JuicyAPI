@@ -2,12 +2,14 @@ package net.juicy.api;
 
 import lombok.Getter;
 import lombok.NonNull;
+import net.juicy.api.command.JuicyReloadCommand;
 import net.juicy.api.listener.ListenerManager;
 import net.juicy.api.server.JuicyServer;
 import net.juicy.api.server.JuicyServerManager;
 import net.juicy.api.server.JuicyServerStatus;
 import net.juicy.api.server.JuicyServerUpdateFlag;
 import net.juicy.api.utils.Hologram;
+import net.juicy.api.utils.command.CommandManager;
 import net.juicy.api.utils.menu.gui.GUIManager;
 import net.juicy.api.utils.menu.item.ItemManager;
 import net.juicy.api.utils.util.EmptyGeneratorUtil;
@@ -15,6 +17,9 @@ import org.bukkit.Bukkit;
 import net.juicy.api.utils.load.Loader;
 import net.juicy.api.utils.log.JuicyLogger;
 import org.bukkit.generator.ChunkGenerator;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Getter
 public class JuicyAPIPlugin extends JuicyPlugin {
@@ -42,6 +47,8 @@ public class JuicyAPIPlugin extends JuicyPlugin {
 
         juicyLogger = new JuicyLogger(this);
         loader = new Loader();
+
+        loader.load(new CommandManager(plugin, "juicyreload", plugin.getCommand("juicyreload").getAliases(), List.of(JuicyReloadCommand.class)));
 
         loader.load(new ListenerManager());
 
