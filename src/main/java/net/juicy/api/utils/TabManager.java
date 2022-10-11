@@ -2,6 +2,7 @@ package net.juicy.api.utils;
 
 import lombok.Data;
 import net.juicy.api.JuicyAPIPlugin;
+import net.minecraft.server.v1_16_R3.ChatComponentText;
 import net.minecraft.server.v1_16_R3.Packet;
 import net.minecraft.server.v1_16_R3.PacketListenerPlayOut;
 import net.minecraft.server.v1_16_R3.PacketPlayOutPlayerListHeaderFooter;
@@ -69,16 +70,16 @@ public class TabManager extends BukkitRunnable {
                 PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter();
                 Class<? extends Packet<PacketListenerPlayOut>> clazz = packet.getClass();
 
-                Field headerField = clazz.getDeclaredField("a");
+                Field headerField = clazz.getDeclaredField("header");
 
                 headerField.setAccessible(true);
-                headerField.set(packet, placeholder.replace(header, player));
+                headerField.set(packet, new ChatComponentText(placeholder.replace(header, player)));
                 headerField.setAccessible(!headerField.isAccessible());
 
-                Field footerField = clazz.getDeclaredField("a");
+                Field footerField = clazz.getDeclaredField("footer");
 
                 footerField.setAccessible(true);
-                footerField.set(packet, placeholder.replace(footer, player));
+                headerField.set(packet, new ChatComponentText(placeholder.replace(footer, player)));
                 footerField.setAccessible(!footerField.isAccessible());
 
                 ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
