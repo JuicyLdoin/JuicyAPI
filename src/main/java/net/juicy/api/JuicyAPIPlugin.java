@@ -62,8 +62,6 @@ public class JuicyAPIPlugin extends JuicyPlugin {
 
         getServer().getMessenger().unregisterOutgoingPluginChannel(this);
 
-        Hologram.getHolograms().forEach(Hologram::clear);
-
         JuicyServer juicyServer = serverManager.getCurrentServer();
 
         juicyServer.setUpdateFlag(JuicyServerUpdateFlag.NONE);
@@ -72,6 +70,8 @@ public class JuicyAPIPlugin extends JuicyPlugin {
         juicyServer.setPlayers(0);
 
         serverManager.saveServer(juicyServer);
+
+        Hologram.getHolograms().forEach(Hologram::clear);
 
         loader.unLoadAll();
 
