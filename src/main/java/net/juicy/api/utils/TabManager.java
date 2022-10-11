@@ -2,8 +2,6 @@ package net.juicy.api.utils;
 
 import lombok.Data;
 import net.juicy.api.JuicyAPIPlugin;
-import net.minecraft.server.v1_16_R3.*;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.scoreboard.Team;
 import org.bukkit.scoreboard.Scoreboard;
 import net.juicy.player.player.JuicyPlayer;
@@ -12,8 +10,6 @@ import org.bukkit.Bukkit;
 import net.juicy.api.utils.placeholder.IPlaceholder;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.lang.reflect.Field;
 
 @Data
 public class TabManager extends BukkitRunnable {
@@ -62,31 +58,7 @@ public class TabManager extends BukkitRunnable {
 
         Bukkit.getOnlinePlayers().forEach(player -> {
 
-//            PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter();
-//
-//            try {
-//
-//                Class<? extends Packet<PacketListenerPlayOut>> clazz = packet.getClass();
-//
-//                Field headerField = clazz.getDeclaredField("header");
-//
-//                headerField.setAccessible(true);
-//                headerField.set(packet, new ChatComponentText(placeholder.replace(header, player)));
-//                headerField.setAccessible(!headerField.isAccessible());
-//
-//                Field footerField = clazz.getDeclaredField("footer");
-//
-//                footerField.setAccessible(true);
-//                headerField.set(packet, new ChatComponentText(placeholder.replace(footer, player)));
-//                footerField.setAccessible(!footerField.isAccessible());
-//
-//            } catch (Exception exception) {
-//
-//                exception.printStackTrace();
-//
-//            }
-//
-//            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+            player.setPlayerListHeaderFooter(placeholder.replace(header, player), placeholder.replace(footer, player));
 
             Bukkit.getOnlinePlayers().forEach(online -> {
 
