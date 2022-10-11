@@ -62,12 +62,6 @@ public class HibernateUtil {
 
     }
 
-    public static Optional<Query<Object>> createQuery(String queryString) {
-
-        return createQuery(queryString, Object.class);
-
-    }
-
     public static <T> Optional<Query<T>> createQuery(String queryString, Class<T> resultClass) {
 
         return Optional.ofNullable(getSessionFactory().openSession().createQuery(queryString, resultClass).setCacheable(false));
