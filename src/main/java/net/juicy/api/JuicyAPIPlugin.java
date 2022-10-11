@@ -23,7 +23,7 @@ public class JuicyAPIPlugin extends JuicyPlugin {
 
     public static JuicyAPIPlugin getPlugin() {
 
-        return JuicyAPIPlugin.plugin;
+        return plugin;
 
     }
 
