@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 @Value
 public class CommandManager implements CommandExecutor, ILoadable {
@@ -49,7 +50,7 @@ public class CommandManager implements CommandExecutor, ILoadable {
                 Command commandAnnotation = clazz.getDeclaredAnnotation(Command.class);
 
                 if (commandAnnotation != null)
-                    if (Arrays.stream(commandAnnotation.aliases()).toList().contains(alias)) {
+                    if (Arrays.stream(commandAnnotation.aliases()).collect(Collectors.toList()).contains(alias)) {
 
                         registeredClasses.add(clazz);
 
@@ -101,7 +102,7 @@ public class CommandManager implements CommandExecutor, ILoadable {
 
             AtomicBoolean called = new AtomicBoolean(false);
 
-            if (Arrays.stream(commandAnnotation.aliases()).toList().contains(label)) {
+            if (Arrays.stream(commandAnnotation.aliases()).collect(Collectors.toList()).contains(label)) {
 
                 if (called.get())
                     return;
