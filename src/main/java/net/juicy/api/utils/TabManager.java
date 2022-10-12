@@ -65,7 +65,7 @@ public class TabManager extends BukkitRunnable {
                 JuicyPlayer juicyPlayer = JuicyPlayerPlugin.getPlugin().getPlayerManager().getPlayer(online, false);
                 Scoreboard scoreboard = player.getScoreboard();
 
-                String teamName = juicyPlayer.getHighestGroup().getPriority() + online.getName().substring(0, online.getName().split("").length / 2);
+                String teamName = juicyPlayer.getHighestGroup().getPriority() + online.getName();
                 Team team = scoreboard.getTeam(teamName);
 
                 if (team == null)
