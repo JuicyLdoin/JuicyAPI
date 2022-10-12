@@ -55,7 +55,8 @@ public class MenuItem {
                                 toConnect.set(juicyServer);
 
                         });
-            }
+            } else
+                toConnect.set(juicyServerManager.getServer(command.split(" ")[1]));
 
             JuicyServer juicyServer = toConnect.get();
 
