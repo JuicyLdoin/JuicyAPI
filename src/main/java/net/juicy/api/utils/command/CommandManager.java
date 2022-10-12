@@ -6,6 +6,7 @@ import net.juicy.api.JuicyAPIPlugin;
 import net.juicy.api.JuicyPlugin;
 import net.juicy.api.utils.load.ILoadable;
 import net.juicy.api.utils.util.collection.ArrayManager;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -116,10 +117,11 @@ public class CommandManager implements CommandExecutor, ILoadable {
 
                 AtomicBoolean hasPermissionCommand = new AtomicBoolean(commandAnnotation.permissions().length == 0);
 
-                for (String permission : commandAnnotation.permissions())
-                    if (!hasPermissionCommand.get())
-                        if (commandSender.hasPermission(permission))
-                            hasPermissionCommand.set(true);
+                if (!hasPermissionCommand.get())
+                    for (String permission : commandAnnotation.permissions())
+                        if (!hasPermissionCommand.get())
+                            if (commandSender.hasPermission(permission))
+                                hasPermissionCommand.set(true);
 
                 if (!hasPermissionCommand.get()) {
 
@@ -144,9 +146,10 @@ public class CommandManager implements CommandExecutor, ILoadable {
 
                     AtomicBoolean hasPermission = new AtomicBoolean(commandArgument.permissions().length == 0);
 
-                    for (String permission : commandArgument.permissions())
-                        if (!hasPermission.get())
-                            hasPermission.set(commandSender.hasPermission(permission));
+                    if (!hasPermission.get())
+                        for (String permission : commandArgument.permissions())
+                            if (!hasPermission.get())
+                                hasPermission.set(commandSender.hasPermission(permission));
 
                     if (!hasPermission.get()) {
 
@@ -157,15 +160,22 @@ public class CommandManager implements CommandExecutor, ILoadable {
 
                     try {
 
-                        if (commandArgument.allArgs() && args.length >= 1)
+                        if (commandArgument.allArgs() && args.length >= 1) {
+
                             callCommand(commandSender, args, clazz, method.getMethod());
-                        else if (method.getArguments().isEmpty())
+                            called.set(true);
+
+                        } else if (method.getArguments().isEmpty() && args.length < 1) {
+
                             callCommand(commandSender, new String[0], clazz, method.getMethod());
-                        else if (method.getArguments().contains(args[0]))
+                            called.set(true);
+
+                        } else if (method.getArguments().contains(args[0])) {
+
                             callCommand(commandSender, new ArrayManager<>(args).removeElement(0), clazz, method.getMethod());
+                            called.set(true);
 
-                        called.set(true);
-
+                        }
                     } catch (Exception ignored) {}
                 });
             }
