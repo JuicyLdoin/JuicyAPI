@@ -86,7 +86,7 @@ public class ItemUtil {
                     if (potionSection.contains("color"))
                         potionMeta.setColor(ColorUtil.deserializeColor(potionSection.getString("color")));
 
-                    for (String potion : potionSection.getStringList("potion")) {
+                    for (String potion : potionSection.getStringList("effects")) {
 
                         String[] potionData = potion.split("=");
                         potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.getByName(potionData[0]),
