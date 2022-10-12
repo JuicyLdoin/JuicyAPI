@@ -92,12 +92,9 @@ public class ArrayManager<T> {
 
     }
 
-    public Stream<T> forEach(Consumer<T> consumer) {
+    public void forEach(Consumer<T> consumer) {
 
-        Stream<T> stream = stream();
-        stream.forEach(consumer);
-
-        return stream;
+        stream().forEach(consumer);
 
     }
 
