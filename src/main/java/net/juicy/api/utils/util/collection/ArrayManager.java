@@ -2,9 +2,15 @@ package net.juicy.api.utils.util.collection;
 
 import lombok.AllArgsConstructor;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.lang.reflect.Array;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 public class ArrayManager<T> {
@@ -83,6 +89,39 @@ public class ArrayManager<T> {
                 .forEach(i -> newArray[i] = array[i]);
 
         return newArray;
+
+    }
+
+    public Stream<T> forEach(Consumer<T> consumer) {
+
+        Stream<T> stream = stream();
+        stream.forEach(consumer);
+
+        return stream;
+
+    }
+
+    public Stream<T> filter(Predicate<T> predicate) {
+
+        return stream().filter(predicate);
+
+    }
+
+    public List<T> toCollect() {
+
+        return stream().collect(Collectors.toList());
+
+    }
+
+    public void clear() {
+
+        IntStream.range(0, array.length).forEach(i -> array[i] = null);
+
+    }
+
+    public Stream<T> stream() {
+
+        return Arrays.stream(array);
 
     }
 }
