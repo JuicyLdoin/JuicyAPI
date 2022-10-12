@@ -5,10 +5,10 @@ import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.GameProfile;
 import java.util.UUID;
 
-import net.juicy.api.JuicyAPIPlugin;
 import net.juicy.api.utils.placeholder.IPlaceholder;
 import net.juicy.api.utils.placeholder.placeholders.APIPlaceholder;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import java.util.Arrays;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -23,6 +23,8 @@ import org.bukkit.Material;
 import java.util.Objects;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class ItemUtil {
 
@@ -69,10 +71,28 @@ public class ItemUtil {
             if (options.contains("color"))
                 try {
 
-                    LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta)itemMeta;
+                    LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) itemMeta;
                     String color = options.getString("color");
                     leatherArmorMeta.setColor(Color.fromRGB(Integer.parseInt(color.split(" ")[0]), Integer.parseInt(color.split(" ")[1]), Integer.parseInt(color.split(" ")[2])));
 
+                } catch (Exception ignored) {}
+
+            if (options.contains("potion"))
+                try {
+
+                    ConfigurationSection potionSection = options.getConfigurationSection("potion");
+                    PotionMeta potionMeta = (PotionMeta) itemMeta;
+
+                    if (potionSection.contains("color"))
+                        potionMeta.setColor(ColorUtil.deserializeColor(potionSection.getString("color")));
+
+                    for (String potion : potionSection.getStringList("potion")) {
+
+                        String[] potionData = potion.split("=");
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.getByName(potionData[0]),
+                                Integer.parseInt(potionData[2]), Integer.parseInt(potionData[1]) - 1), true);
+
+                    }
                 } catch (Exception ignored) {}
         }
 
