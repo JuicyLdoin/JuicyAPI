@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class ClickJoinItemListener implements ILoadableListener {
 
@@ -15,14 +16,15 @@ public class ClickJoinItemListener implements ILoadableListener {
 
         Player player = event.getPlayer();
 
-        if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
-            if (event.getItem() != null) {
+        if (event.getHand().equals(EquipmentSlot.HAND))
+            if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+                if (event.getItem() != null) {
 
-                JoinItem item = JuicyAPIPlugin.getPlugin().getItemManager().getItemByItemStack(event.getItem());
+                    JoinItem item = JuicyAPIPlugin.getPlugin().getItemManager().getItemByItemStack(event.getItem());
 
-                if (item != null)
-                    item.invokeCommand(player);
+                    if (item != null)
+                        item.invokeCommand(player);
 
-            }
+                }
     }
 }
