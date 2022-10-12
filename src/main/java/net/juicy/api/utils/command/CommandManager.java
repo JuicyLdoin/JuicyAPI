@@ -96,11 +96,11 @@ public class CommandManager implements CommandExecutor, ILoadable {
         if (classes == null)
             return false;
 
+        AtomicBoolean called = new AtomicBoolean(false);
+
         classes.forEach(clazz -> {
 
             Command commandAnnotation = clazz.getDeclaredAnnotation(Command.class);
-
-            AtomicBoolean called = new AtomicBoolean(false);
 
             if (Arrays.stream(commandAnnotation.aliases()).collect(Collectors.toList()).contains(label)) {
 
