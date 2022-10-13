@@ -6,6 +6,8 @@ import net.juicy.api.JuicyAPIPlugin;
 import net.juicy.api.JuicyPlugin;
 import net.juicy.api.utils.load.ILoadable;
 import net.juicy.api.utils.util.collection.ArrayManager;
+import net.juicy.player.JuicyPlayerPlugin;
+import net.juicy.player.player.auth.AuthPlayerStatus;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -112,7 +114,8 @@ public class CommandManager implements CommandExecutor, ILoadable {
                     commandSender.sendMessage(juicyAPIPlugin.replace("%prefix%&fКоманда должна выполняться от имени игрока!"));
                     return;
 
-                }
+                } else if (!JuicyPlayerPlugin.getPlugin().getAuthPlayerManager().getPlayer((Player) commandSender).getStatus().equals(AuthPlayerStatus.AUTHORIZED))
+                    return;
 
                 AtomicBoolean hasPermissionCommand = new AtomicBoolean(commandAnnotation.permissions().length == 0);
 
@@ -175,7 +178,8 @@ public class CommandManager implements CommandExecutor, ILoadable {
                             called.set(true);
 
                         }
-                    } catch (Exception ignored) {}
+                    } catch (Exception ignored) {
+                    }
                 });
             }
         });
