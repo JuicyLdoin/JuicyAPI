@@ -180,7 +180,10 @@ public class CommandManager implements CommandExecutor, ILoadable {
                             called.set(true);
 
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception exception) {
+
+                        exception.printStackTrace();
+
                     }
                 });
             }
