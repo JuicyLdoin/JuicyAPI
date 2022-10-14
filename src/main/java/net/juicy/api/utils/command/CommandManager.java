@@ -93,9 +93,6 @@ public class CommandManager implements CommandExecutor, ILoadable {
 
     public boolean onCommand(@NonNull CommandSender commandSender, @NonNull org.bukkit.command.Command command, @NonNull String label, @NonNull String[] args) {
 
-        if (commandSender instanceof Player && !JuicyPlayerPlugin.getPlugin().getAuthPlayerManager().getPlayer((Player) commandSender).getStatus().equals(AuthPlayerStatus.AUTHORIZED))
-            return false;
-
         List<Class<? extends ICommand>> classes = commandClasses.get(label);
 
         if (classes == null)
@@ -110,6 +107,9 @@ public class CommandManager implements CommandExecutor, ILoadable {
             if (Arrays.stream(commandAnnotation.aliases()).collect(Collectors.toList()).contains(label)) {
 
                 if (called.get())
+                    return;
+
+                if (commandSender instanceof Player && !JuicyPlayerPlugin.getPlugin().getAuthPlayerManager().getPlayer((Player) commandSender).getStatus().equals(AuthPlayerStatus.AUTHORIZED))
                     return;
 
                 if (commandAnnotation.onlyPlayers() && !(commandSender instanceof Player)) {
