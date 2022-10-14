@@ -109,13 +109,15 @@ public class CommandManager implements CommandExecutor, ILoadable {
                 if (called.get())
                     return;
 
-                if (commandAnnotation.onlyPlayers() && !(commandSender instanceof Player)) {
+                if (commandAnnotation.onlyPlayers())
+                    if (commandSender instanceof Player && !JuicyPlayerPlugin.getPlugin().getAuthPlayerManager().getPlayer((Player) commandSender).getStatus().equals(AuthPlayerStatus.AUTHORIZED))
+                        return;
+                    else {
 
-                    commandSender.sendMessage(juicyAPIPlugin.replace("%prefix%&fКоманда должна выполняться от имени игрока!"));
-                    return;
+                        commandSender.sendMessage(juicyAPIPlugin.replace("%prefix%&fКоманда должна выполняться от имени игрока!"));
+                        return;
 
-                } else if (!JuicyPlayerPlugin.getPlugin().getAuthPlayerManager().getPlayer((Player) commandSender).getStatus().equals(AuthPlayerStatus.AUTHORIZED))
-                    return;
+                    }
 
                 AtomicBoolean hasPermissionCommand = new AtomicBoolean(commandAnnotation.permissions().length == 0);
 
