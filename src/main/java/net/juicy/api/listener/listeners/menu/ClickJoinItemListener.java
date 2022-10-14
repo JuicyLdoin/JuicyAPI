@@ -18,16 +18,17 @@ public class ClickJoinItemListener implements ILoadableListener {
 
         Player player = event.getPlayer();
 
-        if (event.getHand().equals(EquipmentSlot.HAND))
-            if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
-                if (event.getItem() != null)
-                    if (JuicyPlayerPlugin.getPlugin().getAuthPlayerManager().getPlayer(player).getStatus().equals(AuthPlayerStatus.AUTHORIZED)) {
+        if (event.getHand() != null)
+            if (event.getHand().equals(EquipmentSlot.HAND))
+                if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+                    if (event.getItem() != null)
+                        if (JuicyPlayerPlugin.getPlugin().getAuthPlayerManager().getPlayer(player).getStatus().equals(AuthPlayerStatus.AUTHORIZED)) {
 
-                        JoinItem item = JuicyAPIPlugin.getPlugin().getItemManager().getItemByItemStack(event.getItem());
+                            JoinItem item = JuicyAPIPlugin.getPlugin().getItemManager().getItemByItemStack(event.getItem());
 
-                        if (item != null)
-                            item.invokeCommand(player);
+                            if (item != null)
+                                item.invokeCommand(player);
 
-                    }
+                        }
     }
 }
