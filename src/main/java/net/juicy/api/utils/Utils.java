@@ -35,7 +35,7 @@ public class Utils {
 
         String uuid = UUID.randomUUID().toString().replace("-", "");
 
-        if (uuid.length() > length)
+        if (uuid.length() < length)
             throw new ArrayIndexOutOfBoundsException("Length of ID cannot be longer than " + uuid.length());
 
         String[] rawID = new String[length];
