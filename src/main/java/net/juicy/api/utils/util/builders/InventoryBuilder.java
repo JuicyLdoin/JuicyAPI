@@ -43,7 +43,7 @@ public class InventoryBuilder implements IBuilder<Inventory> {
 
     public InventoryBuilder addItemToRow(int row, ItemStack itemStack, @NonNull RowType rowType) {
 
-        if (inventory.getSize() / 9 > row)
+        if (row > 9 || row < 0)
             throw new ArrayIndexOutOfBoundsException();
 
         if (rowType.equals(RowType.HORIZONTAL)) {
