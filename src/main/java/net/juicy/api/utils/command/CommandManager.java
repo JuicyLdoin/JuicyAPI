@@ -169,12 +169,20 @@ public class CommandManager implements CommandExecutor, ILoadable {
                             callCommand(commandSender, args, clazz, method.getMethod());
                             called.set(true);
 
-                        } else if (method.getArguments().isEmpty() && args.length < 1) {
+                            return;
+
+                        }
+
+                        if (!commandArgument.allArgs() && method.getArguments().isEmpty() && args.length < 1) {
 
                             callCommand(commandSender, new String[0], clazz, method.getMethod());
                             called.set(true);
 
-                        } else if (method.getArguments().contains(args[0])) {
+                            return;
+
+                        }
+
+                        if (method.getArguments().contains(args[0])) {
 
                             callCommand(commandSender, new ArrayManager<>(args).removeElement(0), clazz, method.getMethod());
                             called.set(true);
