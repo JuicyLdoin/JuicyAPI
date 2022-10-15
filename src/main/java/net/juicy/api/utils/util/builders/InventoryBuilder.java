@@ -1,6 +1,7 @@
 package net.juicy.api.utils.util.builders;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import net.juicy.api.utils.JuicyItem;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -40,9 +41,58 @@ public class InventoryBuilder implements IBuilder<Inventory> {
 
     }
 
+    public InventoryBuilder addItemToRow(int row, ItemStack itemStack, @NonNull RowType rowType) {
+
+        if (inventory.getSize() / 9 > row)
+            throw new ArrayIndexOutOfBoundsException();
+
+        if (rowType.equals(RowType.HORIZONTAL)) {
+
+            int startSlot = 9 * row - 1;
+            int endSlot = 9 * (row);
+
+            for (int slot = startSlot; slot < endSlot; slot++)
+                if (inventory.getItem(slot) == null) {
+
+                    inventory.setItem(slot, itemStack);
+                    break;
+
+                }
+        } else if (rowType.equals(RowType.VERTICAL)) {
+
+            int startSlot = row - 1;
+            int endSlot = inventory.getSize() - row - 1;
+
+            for (int slot = startSlot; slot < endSlot; slot += 9)
+                if (inventory.getItem(slot) == null) {
+
+                    inventory.setItem(slot, itemStack);
+                    break;
+
+                }
+        }
+
+        return this;
+
+    }
+
+    public InventoryBuilder addItemToRow(int row, ItemStack itemStack) {
+
+        addItemToRow(row, itemStack, RowType.HORIZONTAL);
+        return this;
+
+    }
+
     public Inventory build() {
 
         return inventory;
+
+    }
+
+    public enum RowType {
+
+        HORIZONTAL,
+        VERTICAL
 
     }
 }
