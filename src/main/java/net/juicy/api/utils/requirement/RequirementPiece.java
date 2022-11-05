@@ -3,7 +3,6 @@ package net.juicy.api.utils.requirement;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.SneakyThrows;
-import lombok.Value;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,24 +21,23 @@ public class RequirementPiece<T> {
     public boolean check(@NotNull T parent) {
 
         Object checked = getByPath(parent);
-        boolean check = false;
 
         if (checked == null)
             return false;
 
-        if (object instanceof Number && checked instanceof Number) {
-
-            Number objectNumber = (Number) object;
-            Number checkedNumber = (Number) checked;
-
-            check = (requirementCheckType.equals(RequirementCheckType.LARGER_THAN) && objectNumber.doubleValue() >= checkedNumber.doubleValue()) ||
-                    (requirementCheckType.equals(RequirementCheckType.LESSER_THAN) && objectNumber.doubleValue() <= checkedNumber.doubleValue());
-
-        }
+        boolean check = (requirementCheckType.equals(RequirementCheckType.EQUALS) && object.equals(checked)) ||
+                (requirementCheckType.equals(RequirementCheckType.NOT_EQUALS) && !object.equals(checked));
 
         if (!check)
-            check = (requirementCheckType.equals(RequirementCheckType.EQUALS) && object.equals(checked)) ||
-                    (requirementCheckType.equals(RequirementCheckType.NOT_EQUALS) && !object.equals(checked));
+            if (object instanceof Number && checked instanceof Number) {
+
+                Number objectNumber = (Number) object;
+                Number checkedNumber = (Number) checked;
+
+                check = (requirementCheckType.equals(RequirementCheckType.LARGER_THAN) && objectNumber.doubleValue() >= checkedNumber.doubleValue()) ||
+                        (requirementCheckType.equals(RequirementCheckType.LESSER_THAN) && objectNumber.doubleValue() <= checkedNumber.doubleValue());
+
+            }
 
         return check;
 
