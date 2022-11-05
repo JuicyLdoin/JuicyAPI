@@ -1,7 +1,3 @@
-
-
-
-
 package net.juicy.api.utils.log;
 
 import java.io.IOException;
