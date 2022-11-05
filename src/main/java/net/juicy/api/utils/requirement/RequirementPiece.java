@@ -55,11 +55,10 @@ public class RequirementPiece<T> {
     @SneakyThrows
     private Object getByPath(@NotNull T parent) {
 
-        Class<?> clazz = parent.getClass();
         Object object = null;
 
         String[] splitPath = objectPath.contains(".") ? objectPath.split("\\.") : new String[] { objectPath };
-        Class<?> currentClass = clazz;
+        Class<?> currentClass = parent.getClass();
 
         int index = 0;
 
