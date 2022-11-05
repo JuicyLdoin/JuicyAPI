@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
+import java.util.function.Consumer;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -40,6 +41,13 @@ public class RequirementPiece<T> {
             }
 
         return check;
+
+    }
+
+    public void callActionIfChecked(@NotNull T parent, @NotNull Consumer<T> consumer) {
+
+        if (check(parent))
+            consumer.accept(parent);
 
     }
 

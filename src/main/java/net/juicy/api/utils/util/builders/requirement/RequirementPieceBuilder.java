@@ -3,6 +3,9 @@ package net.juicy.api.utils.util.builders.requirement;
 import net.juicy.api.utils.requirement.RequirementCheckType;
 import net.juicy.api.utils.requirement.RequirementPiece;
 import net.juicy.api.utils.util.builders.IBuilder;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Consumer;
 
 public class RequirementPieceBuilder<T> implements IBuilder<RequirementPiece<T>> {
 
@@ -25,6 +28,13 @@ public class RequirementPieceBuilder<T> implements IBuilder<RequirementPiece<T>>
     public RequirementPieceBuilder<T> setRequirementCheckType(RequirementCheckType requirementCheckType) {
 
         requirementPiece.setRequirementCheckType(requirementCheckType);
+        return this;
+
+    }
+
+    public RequirementPieceBuilder<T> applyActionIfChecked(@NotNull T parent, @NotNull Consumer<T> consumer) {
+
+        requirementPiece.callActionIfChecked(parent, consumer);
         return this;
 
     }
