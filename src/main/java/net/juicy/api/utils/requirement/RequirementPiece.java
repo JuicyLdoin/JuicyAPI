@@ -58,42 +58,28 @@ public class RequirementPiece<T> {
         Class<?> clazz = parent.getClass();
         Object object = null;
 
-        if (objectPath.contains(".")) {
+        String[] splitPath = objectPath.contains(".") ? objectPath.split("\\.") : new String[] { objectPath };
+        Class<?> currentClass = clazz;
 
-            String[] splitPath = objectPath.split("\\.");
-            Class<?> currentClass = clazz;
+        int index = 0;
 
-            int index = 0;
+        while (index < splitPath.length) {
 
-            while (index < splitPath.length) {
+            String fieldName = splitPath[index];
 
-                String fieldName = splitPath[index];
-
-                Field field = currentClass.getDeclaredField(fieldName);
-
-                boolean accessible = field.isAccessible();
-                field.setAccessible(true);
-
-                if (fieldName.equals(splitPath[splitPath.length - 1]))
-                    object = field.get(field.getType());
-                else
-                    currentClass = field.getType();
-
-                field.setAccessible(accessible);
-
-                index++;
-
-            }
-        } else {
-
-            Field field = clazz.getDeclaredField(objectPath);
+            Field field = currentClass.getDeclaredField(fieldName);
 
             boolean accessible = field.isAccessible();
             field.setAccessible(true);
 
-            object = field.get(field.getType());
+            if (fieldName.equals(splitPath[splitPath.length - 1]))
+                object = field.get(field.getType());
+            else
+                currentClass = field.getType();
 
             field.setAccessible(accessible);
+
+            index++;
 
         }
 
