@@ -1,5 +1,6 @@
 package net.juicy.api.utils.util;
 
+import lombok.experimental.UtilityClass;
 import net.juicy.api.server.JuicyServer;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,6 +13,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+@UtilityClass
 public class HibernateUtil {
 
     private static Configuration configuration;

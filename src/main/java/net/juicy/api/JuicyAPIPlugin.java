@@ -12,7 +12,7 @@ import net.juicy.api.utils.Hologram;
 import net.juicy.api.utils.command.CommandManager;
 import net.juicy.api.utils.menu.gui.GUIManager;
 import net.juicy.api.utils.menu.item.ItemManager;
-import net.juicy.api.utils.util.EmptyGeneratorUtil;
+import net.juicy.api.utils.EmptyGenerator;
 import org.bukkit.Bukkit;
 import net.juicy.api.utils.load.Loader;
 import net.juicy.api.utils.log.JuicyLogger;
@@ -85,7 +85,7 @@ public class JuicyAPIPlugin extends JuicyPlugin {
 
     public ChunkGenerator getDefaultWorldGenerator(@NonNull String worldName, String id) {
 
-        return new EmptyGeneratorUtil();
+        return new EmptyGenerator();
 
     }
 

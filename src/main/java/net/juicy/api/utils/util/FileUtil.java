@@ -1,10 +1,13 @@
 package net.juicy.api.utils.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+@UtilityClass
 public class FileUtil {
 
     public static boolean deleteDirectory(File directoryToBeDeleted) {

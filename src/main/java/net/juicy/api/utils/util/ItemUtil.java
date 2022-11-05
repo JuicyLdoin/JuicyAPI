@@ -5,6 +5,7 @@ import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.GameProfile;
 import java.util.UUID;
 
+import lombok.experimental.UtilityClass;
 import net.juicy.api.utils.placeholder.IPlaceholder;
 import net.juicy.api.utils.placeholder.placeholders.APIPlaceholder;
 import org.bukkit.entity.Player;
@@ -26,6 +27,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+@UtilityClass
 public class ItemUtil {
 
     public static ItemStack buildItem(ConfigurationSection section, IPlaceholder placeholder, Player player) {

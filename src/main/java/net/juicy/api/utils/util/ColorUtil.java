@@ -1,8 +1,10 @@
 package net.juicy.api.utils.util;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.Color;
 import net.md_5.bungee.api.ChatColor;
 
+@UtilityClass
 public class ColorUtil {
 
     public static final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";

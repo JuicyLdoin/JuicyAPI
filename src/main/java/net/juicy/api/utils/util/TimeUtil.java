@@ -1,8 +1,11 @@
 package net.juicy.api.utils.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.concurrent.TimeUnit;
 import java.util.Date;
 
+@UtilityClass
 public class TimeUtil {
 
     public static String makeReadable(int secs) {

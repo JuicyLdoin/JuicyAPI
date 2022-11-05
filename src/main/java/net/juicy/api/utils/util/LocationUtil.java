@@ -1,10 +1,12 @@
 package net.juicy.api.utils.util;
 
+import lombok.experimental.UtilityClass;
 import net.juicy.api.utils.RawLocation;
 import net.juicy.api.utils.util.number.NumberRange;
 import net.juicy.api.utils.util.number.NumberUtil;
 import org.bukkit.Location;
 
+@UtilityClass
 public class LocationUtil {
 
     public static String getLocation(Location location) {

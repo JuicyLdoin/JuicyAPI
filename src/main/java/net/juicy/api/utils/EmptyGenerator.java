@@ -1,4 +1,4 @@
-package net.juicy.api.utils.util;
+package net.juicy.api.utils;
 
 import lombok.NonNull;
 import org.bukkit.Material;
@@ -7,7 +7,7 @@ import org.bukkit.generator.ChunkGenerator;
 
 import java.util.Random;
 
-public class EmptyGeneratorUtil extends ChunkGenerator {
+public class EmptyGenerator extends ChunkGenerator {
 
     public @NonNull ChunkData generateChunkData(@NonNull World world, @NonNull Random random, int x, int z, @NonNull BiomeGrid biome) {
 
