@@ -81,10 +81,8 @@ public class MongoDBUtil {
 
                 List<String> sortedList = new ArrayList<>(arg.keySet());
                 Collections.sort(sortedList);
-                sortedList.removeIf(s -> s.equals("_id"));
 
-
-                Document newDock = new Document("_id", arg.get("_id"));
+                Document newDock = new Document();
 
                 sortedList.forEach(s -> newDock.append(s, arg.get(s)));
 
