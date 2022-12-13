@@ -2,7 +2,10 @@ package net.juicy.api.utils.util;
 
 import lombok.experimental.UtilityClass;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +40,7 @@ public class FileUtil {
 
     }
 
-    private static void copyDirectory(File sourceDirectory, File destinationDirectory, List<String> ignore) throws IOException {
+    private static void copyDirectory(File sourceDirectory, File destinationDirectory, List<String> ignore) throws IOException, NullPointerException {
 
         if (!destinationDirectory.exists())
             destinationDirectory.mkdir();

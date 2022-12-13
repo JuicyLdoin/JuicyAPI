@@ -1,5 +1,6 @@
 package net.juicy.api.utils.menu.item.animation;
 
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 import net.juicy.api.JuicyAPIPlugin;
 import net.juicy.api.utils.JuicyItem;
@@ -11,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Queue;
 
+@EqualsAndHashCode(callSuper = true)
 @Value
 public class AnimatedItem extends MenuItem {
 

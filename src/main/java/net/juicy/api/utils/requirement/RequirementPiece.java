@@ -30,10 +30,7 @@ public class RequirementPiece<T> {
                 (requirementCheckType.equals(RequirementCheckType.NOT_EQUALS) && !object.equals(checked));
 
         if (!check)
-            if (object instanceof Number && checked instanceof Number) {
-
-                Number objectNumber = (Number) object;
-                Number checkedNumber = (Number) checked;
+            if (object instanceof Number objectNumber && checked instanceof Number checkedNumber) {
 
                 check = (requirementCheckType.equals(RequirementCheckType.LARGER_THAN) && objectNumber.doubleValue() >= checkedNumber.doubleValue()) ||
                         (requirementCheckType.equals(RequirementCheckType.LESSER_THAN) && objectNumber.doubleValue() <= checkedNumber.doubleValue());

@@ -97,7 +97,7 @@ public class GUIManager implements ILoadable {
                                                 command.startsWith("server")
                                                         ? new ServerPlaceholder(command.contains(", ") ? command.split(", ")[0].split(" ")[1] : command.split(" ")[1])
                                                         : placeholder,
-                                                new ArrayList<>(loresSection.getStringList(string)))));
+                                                new ArrayList<String>(loresSection.getStringList(string)))));
                                     }
 
                                     items.add(new AnimatedItem(inventory, new JuicyItem(itemSection), command, animationNames, animationLores, 20));

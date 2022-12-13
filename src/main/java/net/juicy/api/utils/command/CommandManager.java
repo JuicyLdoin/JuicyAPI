@@ -52,7 +52,7 @@ public class CommandManager implements CommandExecutor, ILoadable {
                 Command commandAnnotation = clazz.getDeclaredAnnotation(Command.class);
 
                 if (commandAnnotation != null)
-                    if (Arrays.stream(commandAnnotation.aliases()).collect(Collectors.toList()).contains(alias)) {
+                    if (Arrays.stream(commandAnnotation.aliases()).toList().contains(alias)) {
 
                         registeredClasses.add(clazz);
 
