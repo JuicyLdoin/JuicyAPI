@@ -6,6 +6,8 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bson.Document;
 
+import java.beans.Transient;
+import java.lang.reflect.Field;
 import java.util.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -85,6 +87,41 @@ public class MongoDBUtil {
                 Document newDock = new Document("_id", arg.get("_id"));
 
                 sortedList.forEach(s -> newDock.append(s, arg.get(s)));
+
+                collection.insertOne(newDock);
+
+                session.commitTransaction();
+
+            } catch (Exception e) {
+
+                session.abortTransaction();
+
+            }
+
+        }
+
+    }
+    public static void save(Object obj){
+
+        try (ClientSession session = mongoClient.startSession()) {
+            session.startTransaction();
+
+            try {
+
+                Field[] fields = obj.getClass().getFields();
+                Document newDock = new Document();
+
+
+                Arrays.stream(fields).forEach(field -> {
+                    try {
+
+                        if (!field.getType().equals(Transient.class))
+                            newDock.append(field.getName(), field.get(obj));
+
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
 
                 collection.insertOne(newDock);
 
